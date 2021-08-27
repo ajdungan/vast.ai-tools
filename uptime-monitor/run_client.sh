@@ -7,11 +7,14 @@ source $DIR/.env
 WORKER=$1
 PUBIP="$(curl ifconfig.me.)"
 PUBIP = echo "$PUBIP//.}"
+
 if ! [ -n "$WORKER" ]; then
   WORKER="unknown-worker"
 fi
+
 WORKER="$PUBIP-$WORKER"
-echo $WORKER
+
+#echo $WORKER
 while [ 1 ]
 do
   request_url="http://$SERVER_ADDR:$SERVER_PORT/ping/$WORKER?api_key=$API_KEY"
