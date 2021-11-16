@@ -20,7 +20,6 @@ do
                 PUBIP="$(curl ifconfig.me.)"
                 sleep 1
         done
-  PUBIP= echo "$PUBIP//.}"
   CWORKER="$PUBIP-$WORKER"
 
   request_url="http://$SERVER_ADDR:$SERVER_PORT/ping/$CWORKER?api_key=$API_KEY"
