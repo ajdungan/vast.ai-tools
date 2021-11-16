@@ -14,14 +14,13 @@ fi
 
 while [ 1 ]
 do
-  PUBID=""
-   while [ "$PUBIP" = "" ]
+  PUBIP="curl: (6) Could not resolve host: ifconfig.me."
+  while [ "$PUBIP" = "curl: (6) Could not resolve host: ifconfig.me." ]
         do
                 PUBIP="$(curl ifconfig.me.)"
                 sleep 1
         done
   PUBIP= echo "$PUBIP//.}"
-
   CWORKER="$PUBIP-$WORKER"
 
   request_url="http://$SERVER_ADDR:$SERVER_PORT/ping/$CWORKER?api_key=$API_KEY"
@@ -30,4 +29,3 @@ do
   curl -m 2 "$request_url"
   sleep $PING_INTERVAL
 done
-
