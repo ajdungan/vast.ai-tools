@@ -1,4 +1,3 @@
-
 SET NAMES utf8 ;
 SET character_set_client = utf8mb4 ;
 
@@ -46,3 +45,4 @@ CREATE TABLE `vast`.`event` (
   `val3` VARCHAR(45) NULL,
   `val4` VARCHAR(45) NULL,
   PRIMARY KEY (`id`));
+ubuntu@ip-172-31-24-33:~/vast.ai-tools/analytics/server/config/db_init$
