@@ -30,7 +30,7 @@ def run():
     db.insert_hardware(_time, {
         "component": "disk_space",
         "hw_id": None,
-        "utilisation": disk_space.free,
+        "utilisation": disk_space.percent,
         "temperature": None,
         "power_consumption": None,
     })
@@ -39,7 +39,7 @@ def run():
     db.insert_hardware(_time, {
         "component": "disk_usage",
         "hw_id": None,
-        "utilisation": disk_usage.read_count,
+        "utilisation": disk_space.percent,
         "temperature": None,
         "power_consumption": None,
     })
