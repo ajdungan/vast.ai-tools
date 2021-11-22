@@ -32,6 +32,8 @@ CREATE TABLE `vast`.`machine` (
   `rentals_on_demand` int DEFAULT NULL,
   `rentals_bid` int DEFAULT NULL,
   `earn_hour` float DEFAULT NULL,
+  `hostname` varchar(45) DEFAULT NULL,
+  `earn_day` float DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -45,4 +47,3 @@ CREATE TABLE `vast`.`event` (
   `val3` VARCHAR(45) NULL,
   `val4` VARCHAR(45) NULL,
   PRIMARY KEY (`id`));
-ubuntu@ip-172-31-24-33:~/vast.ai-tools/analytics/server/config/db_init$
