@@ -12,8 +12,10 @@ def run():
     cpu_usage = psutil.cpu_percent()
     disk_space = psutil.disk_usage('/var/lib/docker')
     disk_usage = psutil.disk_io_counters(perdisk=False)
+#    network_usage = psutil.net_io_counters(pernic=True)["docker0"]
     network_usage = psutil.net_io_counters(pernic=True)
     temperatures = psutil.sensors_temperatures()
+    networksum=0
 
     def get_average(items):
         items = [item.current for item in items]
@@ -39,20 +41,36 @@ def run():
     db.insert_hardware(_time, {
         "component": "disk_usage",
         "hw_id": None,
-        "utilisation": disk_space.percent,
+        "utilisation": disk_space.read_count,
         "temperature": None,
         "power_consumption": None,
     })
-
-    for item in network_usage:
-        db.insert_hardware(_time, {
-            "component": "network",
-            "hw_id": item,
-            "utilisation": network_usage[item].bytes_recv,
-            "temperature": None,
-            "power_consumption": None,
-        })
     '''
+#    for item in network_usage:
+#        db.insert_hardware(_time, {
+#            "component": "network",
+#            "hw_id": none,
+#            "utilisation": network_usage[item].bytes_recv + network_usage[item].bytes_sent,
+#            "temperature": None,
+#            "power_consumption": None,
+#        })
+    for item in network_usage:
+        networksum = networksum + network_usage[item].bytes_recv + network_usage[item].bytes_sent
+
+    db.insert_hardware(_time, {
+         "component": "network",
+         "hw_id": None,
+         "utilisation": networksum,
+         "temperature": None,
+         "power_consumption": None,
+    })
+#    db.insert_hardware(_time, {
+#        "component": "network",
+#        "hw_id": None,
+#        "utilisation": network_usage.bytes_recv + network_usage.bytes_sent,
+#        "temperature": None,
+#        "power_consumption": None,
+#    })
 
     db.insert_hardware(_time, {
         "component": "cpu",
