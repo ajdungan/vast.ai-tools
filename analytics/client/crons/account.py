@@ -24,8 +24,9 @@ def run():
         "rentals_stored": machine.current_rentals_resident,
         "rentals_on_demand": machine.current_rentals_running_on_demand,
         "rentals_bid":  machine.current_rentals_running - machine.current_rentals_running_on_demand,
-        "earn_hour":  machine.earn_hour
-
+        "earn_hour":  machine.earn_hour,
+        "hostname": machine.hostname,
+        "earn_day": machine.earn_day
     })
 
     for key, instance in enumerate(machine.instances):
