@@ -41,6 +41,7 @@ class Instance(Encodable):
 class Machine(Encodable):
     id: int = None
     timeout: int = None
+    hostname: str = None
     num_gpus: int = None
     gpu_name: str = None
     listed_min_gpu_count: int = None
@@ -52,6 +53,7 @@ class Machine(Encodable):
     bid_gpu_cost: float = None
     disk_space: int = None
     earn_hour: float = None
+    earn_day: float = None
     current_rentals_running: int = None
     current_rentals_running_on_demand: int = None
     current_rentals_resident: int = None
