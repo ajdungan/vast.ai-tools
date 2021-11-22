@@ -4,7 +4,8 @@ This is an analytics dashboard for remotely monitoring system information as wel
 
 NOTE: This is still a WIP. Not everything displayed is working properly and it needs lots of improvements like log rotation etc.
 
-![image](https://raw.githubusercontent.com/leona/vast.ai-tools/master/analytics/screenshot.png)
+![image](https://user-images.githubusercontent.com/19214485/142931964-4ea23bd8-8fd7-40e5-bfcf-c88a9fffc78c.png)
+
 
 ## Server setup
 
