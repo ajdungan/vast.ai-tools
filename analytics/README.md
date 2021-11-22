@@ -16,7 +16,7 @@ Do not try run this on your rig, it can use up a lot of CPU and memory.
 ### 1. Dependencies & config
 ```bash
 sudo apt install -y docker.io docker-compose
-git clone https://github.com/leona/vast.ai-tools.git
+git clone https://github.com/jjziets/vast.ai-tools.git
 cd vast.ai-tools/analytics/server
 ```
 
@@ -63,7 +63,7 @@ docker run \
   -v /var/lib/vastai_kaalia/api_key:/var/lib/vastai_analytics/api_key \
   --network host \
   --name vast-analytics -d \
-  nxie/vast-analytics
+  jjziets/custom:vast-dash-analytics
 ```
 
 ## Update steps
@@ -83,7 +83,7 @@ You may also redo the dashboard.json step from the server setup to get the lates
 ```bash
 docker stop vast-analytics
 docker rm vast-analytics
-docker pull nxie/vast-analytics
+docker pull jjziets/custom:vast-dash-analytics
 
 # run client setup again
 ```
