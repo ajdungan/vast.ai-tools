@@ -22,4 +22,3 @@ def run():
         "val3": values[2] if len(values) >= 3 else None,
         "val4": values[3] if len(values) >= 4 else None
     })
-
