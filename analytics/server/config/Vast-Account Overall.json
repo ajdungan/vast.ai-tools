@@ -88,7 +88,7 @@
           ]
         }
       ],
-      "title": "Client Online Status",
+      "title": "Host Online Status",
       "tooltip": {
         "show": true,
         "showHistogram": true
@@ -561,7 +561,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "GPU Power draw",
+      "title": "Power Usage",
       "transformations": [
         {
           "id": "calculateField",
@@ -720,7 +720,7 @@
       },
       "gridPos": {
         "h": 12,
-        "w": 3,
+        "w": 4,
         "x": 0,
         "y": 28
       },
@@ -818,8 +818,8 @@
       },
       "gridPos": {
         "h": 12,
-        "w": 3,
-        "x": 3,
+        "w": 4,
+        "x": 4,
         "y": 28
       },
       "id": 6,
@@ -879,7 +879,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "RAM utilization ",
+      "title": "RAM Usage",
       "transformations": [
         {
           "id": "groupBy",
@@ -939,7 +939,7 @@
       "gridPos": {
         "h": 12,
         "w": 4,
-        "x": 6,
+        "x": 8,
         "y": 28
       },
       "id": 8,
@@ -953,7 +953,7 @@
           "format": "table",
           "group": [],
           "metricColumn": "none",
-          "rawQuery": false,
+          "rawQuery": true,
           "rawSql": "SELECT\n  time AS \"time\",\n  machine_id,\n  utilisation\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'disk_space'\nORDER BY time",
           "refId": "A",
           "select": [
@@ -998,7 +998,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Free Space",
+      "title": "Disk Usage",
       "transformations": [
         {
           "id": "groupBy",
@@ -1064,7 +1064,7 @@
       "gridPos": {
         "h": 12,
         "w": 4,
-        "x": 10,
+        "x": 12,
         "y": 28
       },
       "id": 18,
@@ -1217,8 +1217,8 @@
       },
       "gridPos": {
         "h": 12,
-        "w": 10,
-        "x": 14,
+        "w": 8,
+        "x": 16,
         "y": 28
       },
       "id": 2,
@@ -1360,5 +1360,5 @@
   "timezone": "",
   "title": "Account Overall",
   "uid": "TRHLcQ57z",
-  "version": 39
+  "version": 46
 }
