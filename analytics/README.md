@@ -13,6 +13,7 @@ The server will host your database and Grafana dashboard.
 I recommend a $5 Ubuntu 18.04 server from Vultr. Use my referral link for $100 credit.
 https://www.vultr.com/?ref=8581277-6G
 Do not try run this on your rig, it can use up a lot of CPU and memory.
+Open port 80 and 3306 on the VPS
 
 ### 1. Dependencies & config
 ```bash
