@@ -77,7 +77,7 @@
       },
       "gridPos": {
         "h": 8,
-        "w": 12,
+        "w": 11,
         "x": 0,
         "y": 0
       },
@@ -152,6 +152,7 @@
     },
     {
       "datasource": "MySQL",
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -170,16 +171,13 @@
               "viz": false
             },
             "lineInterpolation": "smooth",
-            "lineStyle": {
-              "fill": "solid"
-            },
             "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
               "type": "linear"
             },
-            "showPoints": "never",
-            "spanNulls": 60000,
+            "showPoints": "auto",
+            "spanNulls": false,
             "stacking": {
               "group": "A",
               "mode": "none"
@@ -188,6 +186,7 @@
               "mode": "off"
             }
           },
+          "decimals": 2,
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -198,22 +197,20 @@
               }
             ]
           },
-          "unit": "watt"
+          "unit": "currencyUSD"
         },
         "overrides": []
       },
       "gridPos": {
         "h": 8,
-        "w": 12,
-        "x": 12,
+        "w": 13,
+        "x": 11,
         "y": 0
       },
-      "id": 10,
+      "id": 4,
       "options": {
         "legend": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": [],
           "displayMode": "list",
           "placement": "bottom"
         },
@@ -225,42 +222,23 @@
       "targets": [
         {
           "format": "time_series",
-          "group": [
-            {
-              "params": [
-                "time (1s,none)"
-              ],
-              "type": "column"
-            }
-          ],
+          "group": [],
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__unixEpochGroupAlias(time,10m),\n  sum(power_consumption) / count(power_consumption) * count(DISTINCT machine_id)  AS \"power_consumption\"\nFROM hardware\nWHERE\n  $__unixEpochFilter(time)\nGROUP BY 1\nORDER BY $__unixEpochGroup(time,10m)",
+          "rawSql": "SELECT\n  time AS \"time\",\n  account_credit\nFROM machine\nWHERE\n  $__unixEpochFilter(time)\nORDER BY time",
           "refId": "A",
           "select": [
             [
               {
                 "params": [
-                  "power_consumption"
+                  "account_credit"
                 ],
                 "type": "column"
-              },
-              {
-                "params": [
-                  "sum"
-                ],
-                "type": "aggregate"
-              },
-              {
-                "params": [
-                  "power_consumption"
-                ],
-                "type": "alias"
               }
             ]
           ],
-          "table": "hardware",
+          "table": "machine",
           "timeColumn": "time",
           "timeColumnType": "int",
           "where": [
@@ -274,7 +252,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Total Power draw",
+      "title": "Account Credit",
       "transformations": [],
       "type": "timeseries"
     },
@@ -317,7 +295,7 @@
       },
       "gridPos": {
         "h": 12,
-        "w": 12,
+        "w": 11,
         "x": 0,
         "y": 8
       },
@@ -395,41 +373,15 @@
     },
     {
       "datasource": "MySQL",
-      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "palette-classic"
+            "mode": "thresholds"
           },
           "custom": {
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "smooth",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
+            "align": "auto",
+            "displayMode": "auto"
           },
-          "decimals": 2,
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -440,26 +392,37 @@
               }
             ]
           },
-          "unit": "currencyUSD"
+          "unit": "watt"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "machine_id"
+            },
+            "properties": [
+              {
+                "id": "unit"
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 12,
-        "w": 12,
-        "x": 12,
+        "w": 13,
+        "x": 11,
         "y": 8
       },
-      "id": 4,
+      "id": 10,
       "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "single"
-        }
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Time"
+          }
+        ]
       },
       "pluginVersion": "8.2.5",
       "targets": [
@@ -467,21 +430,29 @@
           "format": "time_series",
           "group": [],
           "hide": false,
-          "metricColumn": "none",
-          "rawQuery": true,
-          "rawSql": "SELECT\n  time AS \"time\",\n  account_credit\nFROM machine\nWHERE\n  $__unixEpochFilter(time)\nORDER BY time",
+          "metricColumn": "hw_id",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  time AS \"time\",\n  hw_id AS metric,\n  machine_id,\n  power_consumption\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu'\nORDER BY time",
           "refId": "A",
           "select": [
             [
               {
                 "params": [
-                  "account_credit"
+                  "machine_id"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "power_consumption"
                 ],
                 "type": "column"
               }
             ]
           ],
-          "table": "machine",
+          "table": "hardware",
           "timeColumn": "time",
           "timeColumnType": "int",
           "where": [
@@ -489,15 +460,135 @@
               "name": "$__unixEpochFilter",
               "params": [],
               "type": "macro"
+            },
+            {
+              "name": "",
+              "params": [
+                "component",
+                "=",
+                "'gpu'"
+              ],
+              "type": "expression"
             }
           ]
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Account Credit",
-      "transformations": [],
-      "type": "timeseries"
+      "title": "GPU Power draw",
+      "transformations": [
+        {
+          "id": "calculateField",
+          "options": {
+            "mode": "reduceRow",
+            "reduce": {
+              "include": [
+                "power_consumption 1",
+                "power_consumption 0",
+                "power_consumption 2",
+                "power_consumption 3",
+                "power_consumption 4",
+                "power_consumption 5"
+              ],
+              "reducer": "sum"
+            }
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "machine_id 0": false,
+              "machine_id 1": true,
+              "machine_id 2": true,
+              "machine_id 3": true,
+              "machine_id 4": true,
+              "machine_id 5": true,
+              "power_consumption 1": false
+            },
+            "indexByName": {
+              "Time": 0,
+              "Total": 13,
+              "machine_id 0": 2,
+              "machine_id 1": 1,
+              "machine_id 2": 3,
+              "machine_id 3": 4,
+              "machine_id 4": 5,
+              "machine_id 5": 6,
+              "power_consumption 0": 7,
+              "power_consumption 1": 8,
+              "power_consumption 2": 9,
+              "power_consumption 3": 10,
+              "power_consumption 4": 11,
+              "power_consumption 5": 12
+            },
+            "renameByName": {
+              "Total": "",
+              "machine_id 1": "",
+              "power_consumption 0": "GPU0",
+              "power_consumption 1": "GPU1",
+              "power_consumption 2": "GPU2",
+              "power_consumption 3": "GPU3",
+              "power_consumption 4": "GPU4",
+              "power_consumption 5": "GPU5"
+            }
+          }
+        },
+        {
+          "id": "groupBy",
+          "options": {
+            "fields": {
+              "GPU0": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "GPU1": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "GPU2": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "GPU3": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "GPU4": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "GPU5": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "Total": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "machine_id 0": {
+                "aggregations": [],
+                "operation": "groupby"
+              }
+            }
+          }
+        }
+      ],
+      "type": "table"
     },
     {
       "datasource": null,
@@ -1168,7 +1259,7 @@
       "type": "table"
     }
   ],
-  "refresh": "",
+  "refresh": false,
   "schemaVersion": 32,
   "style": "dark",
   "tags": [],
@@ -1183,5 +1274,5 @@
   "timezone": "",
   "title": "Account Overall",
   "uid": "TRHLcQ57z",
-  "version": 31
+  "version": 34
 }
