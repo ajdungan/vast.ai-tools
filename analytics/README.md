@@ -16,7 +16,9 @@ Do not try run this on your rig, it can use up a lot of CPU and memory.
 
 ### 1. Dependencies & config
 ```bash
+sudo apt install containerd
 sudo apt install -y docker.io docker-compose
+sudo service docker start
 git clone https://github.com/jjziets/vast.ai-tools.git
 cd vast.ai-tools/analytics/server
 ```
