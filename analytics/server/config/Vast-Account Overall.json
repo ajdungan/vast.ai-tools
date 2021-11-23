@@ -27,6 +27,92 @@
   "liveNow": false,
   "panels": [
     {
+      "cards": {
+        "cardPadding": 1,
+        "cardRound": null
+      },
+      "color": {
+        "cardColor": "#b4ff00",
+        "colorScale": "sqrt",
+        "colorScheme": "interpolateGreens",
+        "exponent": 0.5,
+        "max": 100,
+        "min": 100,
+        "mode": "spectrum"
+      },
+      "dataFormat": "timeseries",
+      "datasource": null,
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "heatmap": {},
+      "hideZeroBuckets": true,
+      "highlightCards": true,
+      "id": 20,
+      "legend": {
+        "show": false
+      },
+      "pluginVersion": "8.2.5",
+      "reverseYBuckets": false,
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  time AS \"time\",\n  machine_id\nFROM hardware\nWHERE\n  $__unixEpochFilter(time)\nORDER BY time",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "machine_id"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "hardware",
+          "timeColumn": "time",
+          "timeColumnType": "int",
+          "where": [
+            {
+              "name": "$__unixEpochFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "Client Online Status",
+      "tooltip": {
+        "show": true,
+        "showHistogram": true
+      },
+      "type": "heatmap",
+      "xAxis": {
+        "show": true
+      },
+      "xBucketNumber": null,
+      "xBucketSize": null,
+      "yAxis": {
+        "decimals": null,
+        "format": "none",
+        "logBase": 1,
+        "max": null,
+        "min": null,
+        "show": true,
+        "splitFactor": null
+      },
+      "yBucketBound": "auto",
+      "yBucketNumber": null,
+      "yBucketSize": null
+    },
+    {
       "datasource": null,
       "fieldConfig": {
         "defaults": {
@@ -79,7 +165,7 @@
         "h": 8,
         "w": 11,
         "x": 0,
-        "y": 0
+        "y": 8
       },
       "id": 12,
       "options": {
@@ -205,7 +291,7 @@
         "h": 8,
         "w": 13,
         "x": 11,
-        "y": 0
+        "y": 8
       },
       "id": 4,
       "options": {
@@ -295,9 +381,9 @@
       },
       "gridPos": {
         "h": 12,
-        "w": 11,
+        "w": 9,
         "x": 0,
-        "y": 8
+        "y": 16
       },
       "id": 14,
       "options": {
@@ -410,9 +496,9 @@
       },
       "gridPos": {
         "h": 12,
-        "w": 13,
-        "x": 11,
-        "y": 8
+        "w": 15,
+        "x": 9,
+        "y": 16
       },
       "id": 10,
       "options": {
@@ -636,7 +722,7 @@
         "h": 12,
         "w": 3,
         "x": 0,
-        "y": 20
+        "y": 28
       },
       "id": 16,
       "options": {
@@ -734,7 +820,7 @@
         "h": 12,
         "w": 3,
         "x": 3,
-        "y": 20
+        "y": 28
       },
       "id": 6,
       "options": {
@@ -854,7 +940,7 @@
         "h": 12,
         "w": 4,
         "x": 6,
-        "y": 20
+        "y": 28
       },
       "id": 8,
       "options": {
@@ -979,7 +1065,7 @@
         "h": 12,
         "w": 4,
         "x": 10,
-        "y": 20
+        "y": 28
       },
       "id": 18,
       "options": {
@@ -1133,7 +1219,7 @@
         "h": 12,
         "w": 10,
         "x": 14,
-        "y": 20
+        "y": 28
       },
       "id": 2,
       "options": {
@@ -1274,5 +1360,5 @@
   "timezone": "",
   "title": "Account Overall",
   "uid": "TRHLcQ57z",
-  "version": 34
+  "version": 39
 }
