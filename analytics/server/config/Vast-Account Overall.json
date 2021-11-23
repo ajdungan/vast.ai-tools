@@ -534,23 +534,8 @@
             },
             "properties": [
               {
-                "id": "unit"
-              },
-              {
-                "id": "custom.width",
-                "value": 90
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "utilisation (last)"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 130
+                "id": "unit",
+                "value": "none"
               }
             ]
           }
@@ -647,23 +632,8 @@
             },
             "properties": [
               {
-                "id": "custom.width",
-                "value": 97
-              },
-              {
-                "id": "unit"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "utilisation (last)"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 117
+                "id": "unit",
+                "value": "none"
               }
             ]
           }
@@ -1213,5 +1183,5 @@
   "timezone": "",
   "title": "Account Overall",
   "uid": "TRHLcQ57z",
-  "version": 30
+  "version": 31
 }
