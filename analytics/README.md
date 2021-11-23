@@ -42,7 +42,7 @@ password "Password you made in docker.compose.yml"
 user "root"
 ```
 - Hit save
-- Then in the sidebar again, add a dashboard and select "import". Use [this file](./server/config/dashboard.json)
+- Then in the sidebar again, add a dashboard and select "import". Use [this file](https://raw.githubusercontent.com/jjziets/vast.ai-tools/master/analytics/server/config/Vast-HostView.json) More dashbaordsa are comming
 - Select your dashboard and on the top there is options you can change for power cost, power offset and machine ID. You must set the machine ID to the same one as the client you setup below. You must create a dashboard for each Vast rig and set its machine ID.
 
 ## Client setup
