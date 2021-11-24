@@ -430,15 +430,13 @@
       "type": "timeseries"
     },
     {
-      "datasource": null,
+      "datasource": "MySQL",
       "fieldConfig": {
         "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
           "custom": {
             "align": "left",
-            "displayMode": "auto"
+            "displayMode": "auto",
+            "filterable": false
           },
           "mappings": [],
           "thresholds": {
@@ -449,18 +447,18 @@
                 "value": null
               }
             ]
-          },
-          "unit": "currencyUSD"
+          }
         },
         "overrides": [
           {
             "matcher": {
               "id": "byName",
-              "options": "machine_id"
+              "options": "reliability (last)"
             },
             "properties": [
               {
-                "id": "unit"
+                "id": "unit",
+                "value": "percentunit"
               }
             ]
           }
@@ -472,19 +470,19 @@
         "x": 0,
         "y": 16
       },
-      "id": 14,
+      "id": 2,
       "options": {
-        "showHeader": true
+        "showHeader": true,
+        "sortBy": []
       },
       "pluginVersion": "8.2.5",
       "targets": [
         {
-          "format": "time_series",
+          "format": "table",
           "group": [],
-          "hide": false,
           "metricColumn": "none",
-          "rawQuery": true,
-          "rawSql": "SELECT\n  time AS \"time\",\n  machine_id,\n  earn_hour,\n  earn_day\nFROM machine\nWHERE\n  $__unixEpochFilter(time)\nORDER BY time",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  time AS \"time\",\n  machine_id,\n  reliability,\n  rentals_on_demand,\n  rentals_bid,\n  rentals_stored\nFROM machine\nWHERE\n  $__unixEpochFilter(time)\nORDER BY time",
           "refId": "A",
           "select": [
             [
@@ -498,7 +496,31 @@
             [
               {
                 "params": [
-                  "earn_hour"
+                  "reliability"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "rentals_on_demand"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "rentals_bid"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "rentals_stored"
                 ],
                 "type": "column"
               }
@@ -516,27 +538,49 @@
           ]
         }
       ],
-      "title": "Income Per Host",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Rentals Information ",
       "transformations": [
         {
           "id": "groupBy",
           "options": {
             "fields": {
-              "earn_day": {
-                "aggregations": [
-                  "last"
-                ],
-                "operation": "aggregate"
-              },
-              "earn_hour": {
+              "earning": {
                 "aggregations": [
                   "last"
                 ],
                 "operation": "aggregate"
               },
               "machine_id": {
-                "aggregations": [],
+                "aggregations": [
+                  "last"
+                ],
                 "operation": "groupby"
+              },
+              "reliability": {
+                "aggregations": [
+                  "last"
+                ],
+                "operation": "aggregate"
+              },
+              "rentals_bid": {
+                "aggregations": [
+                  "last"
+                ],
+                "operation": "aggregate"
+              },
+              "rentals_on_demand": {
+                "aggregations": [
+                  "last"
+                ],
+                "operation": "aggregate"
+              },
+              "rentals_stored": {
+                "aggregations": [
+                  "last"
+                ],
+                "operation": "aggregate"
               }
             }
           }
@@ -547,8 +591,9 @@
             "excludeByName": {},
             "indexByName": {},
             "renameByName": {
-              "earn_day (last)": "Earnings per day",
-              "earn_hour (last)": "Earnings per hour"
+              "rentals_bid (last)": "Running Interruptible",
+              "rentals_on_demand (last)": "Running On Demand",
+              "rentals_stored (last)": "Stored Instances"
             }
           }
         }
@@ -724,43 +769,43 @@
             "fields": {
               "GPU0": {
                 "aggregations": [
-                  "lastNotNull"
+                  "last"
                 ],
                 "operation": "aggregate"
               },
               "GPU1": {
                 "aggregations": [
-                  "lastNotNull"
+                  "last"
                 ],
                 "operation": "aggregate"
               },
               "GPU2": {
                 "aggregations": [
-                  "lastNotNull"
+                  "last"
                 ],
                 "operation": "aggregate"
               },
               "GPU3": {
                 "aggregations": [
-                  "lastNotNull"
+                  "last"
                 ],
                 "operation": "aggregate"
               },
               "GPU4": {
                 "aggregations": [
-                  "lastNotNull"
+                  "last"
                 ],
                 "operation": "aggregate"
               },
               "GPU5": {
                 "aggregations": [
-                  "lastNotNull"
+                  "last"
                 ],
                 "operation": "aggregate"
               },
               "Total": {
                 "aggregations": [
-                  "lastNotNull"
+                  "last"
                 ],
                 "operation": "aggregate"
               },
@@ -792,14 +837,137 @@
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
           },
-          "unit": "percent"
+          "unit": "currencyUSD"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "machine_id"
+            },
+            "properties": [
+              {
+                "id": "unit"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 9,
+        "x": 0,
+        "y": 20
+      },
+      "id": 14,
+      "options": {
+        "showHeader": true
+      },
+      "pluginVersion": "8.2.5",
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  time AS \"time\",\n  machine_id,\n  earn_hour,\n  earn_day\nFROM machine\nWHERE\n  $__unixEpochFilter(time)\nORDER BY time",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "machine_id"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "earn_hour"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "machine",
+          "timeColumn": "time",
+          "timeColumnType": "int",
+          "where": [
+            {
+              "name": "$__unixEpochFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "Income Per Host",
+      "transformations": [
+        {
+          "id": "groupBy",
+          "options": {
+            "fields": {
+              "earn_day": {
+                "aggregations": [
+                  "last"
+                ],
+                "operation": "aggregate"
+              },
+              "earn_hour": {
+                "aggregations": [
+                  "last"
+                ],
+                "operation": "aggregate"
+              },
+              "machine_id": {
+                "aggregations": [],
+                "operation": "groupby"
+              }
+            }
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {},
+            "renameByName": {
+              "earn_day (last)": "Earnings per day",
+              "earn_hour (last)": "Earnings per hour"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "left",
+            "displayMode": "auto"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "celsius"
         },
         "overrides": [
           {
@@ -818,9 +986,166 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 4,
-        "x": 0,
+        "w": 15,
+        "x": 9,
         "y": 20
+      },
+      "id": 24,
+      "options": {
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Time"
+          }
+        ]
+      },
+      "pluginVersion": "8.2.5",
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "hw_id",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  time AS \"time\",\n  hw_id AS metric,\n  machine_id,\n  temperature\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu'\nORDER BY time",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "machine_id"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "temperature"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "hardware",
+          "timeColumn": "time",
+          "timeColumnType": "int",
+          "where": [
+            {
+              "name": "$__unixEpochFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "name": "",
+              "params": [
+                "component",
+                "=",
+                "'gpu'"
+              ],
+              "type": "expression"
+            }
+          ]
+        }
+      ],
+      "title": "GPU Temperatures",
+      "transformations": [
+        {
+          "id": "groupBy",
+          "options": {
+            "fields": {
+              "machine_id": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "temperature": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              }
+            }
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "machine_id 2": true,
+              "machine_id 3": true,
+              "machine_id 4": true,
+              "machine_id 5": true,
+              "machine_id 6": true
+            },
+            "indexByName": {},
+            "renameByName": {
+              "temperature (lastNotNull) 1": "GPU0",
+              "temperature (lastNotNull) 2": "GPU1",
+              "temperature (lastNotNull) 3": "GPU2",
+              "temperature (lastNotNull) 4": "GPU3",
+              "temperature (lastNotNull) 5": "GPU4",
+              "temperature (lastNotNull) 6": "GPU5"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "left",
+            "displayMode": "auto"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "machine_id"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "none"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "temperature (last)"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "celsius"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 7,
+        "x": 0,
+        "y": 24
       },
       "id": 16,
       "options": {
@@ -834,7 +1159,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  time AS \"time\",\n  machine_id,\n  utilisation\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'cpu'\nORDER BY time",
+          "rawSql": "SELECT\n  time AS \"time\",\n  machine_id,\n  utilisation,\n  temperature\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'cpu'\nORDER BY time",
           "refId": "A",
           "select": [
             [
@@ -865,6 +1190,12 @@
               "machine_id": {
                 "aggregations": [],
                 "operation": "groupby"
+              },
+              "temperature": {
+                "aggregations": [
+                  "last"
+                ],
+                "operation": "aggregate"
               },
               "utilisation": {
                 "aggregations": [
@@ -916,9 +1247,9 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 4,
-        "x": 4,
-        "y": 20
+        "w": 6,
+        "x": 7,
+        "y": 24
       },
       "id": 6,
       "options": {
@@ -1036,9 +1367,9 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 4,
-        "x": 8,
-        "y": 20
+        "w": 6,
+        "x": 13,
+        "y": 24
       },
       "id": 8,
       "options": {
@@ -1161,9 +1492,9 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 4,
-        "x": 12,
-        "y": 20
+        "w": 5,
+        "x": 19,
+        "y": 24
       },
       "id": 18,
       "options": {
@@ -1277,177 +1608,6 @@
         }
       ],
       "type": "table"
-    },
-    {
-      "datasource": "MySQL",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": "left",
-            "displayMode": "auto",
-            "filterable": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          }
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "reliability (last)"
-            },
-            "properties": [
-              {
-                "id": "unit",
-                "value": "percentunit"
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 8,
-        "x": 16,
-        "y": 20
-      },
-      "id": 2,
-      "options": {
-        "showHeader": true,
-        "sortBy": []
-      },
-      "pluginVersion": "8.2.5",
-      "targets": [
-        {
-          "format": "table",
-          "group": [],
-          "metricColumn": "none",
-          "rawQuery": false,
-          "rawSql": "SELECT\n  time AS \"time\",\n  machine_id,\n  reliability,\n  rentals_on_demand,\n  rentals_bid,\n  rentals_stored\nFROM machine\nWHERE\n  $__unixEpochFilter(time)\nORDER BY time",
-          "refId": "A",
-          "select": [
-            [
-              {
-                "params": [
-                  "machine_id"
-                ],
-                "type": "column"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "reliability"
-                ],
-                "type": "column"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "rentals_on_demand"
-                ],
-                "type": "column"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "rentals_bid"
-                ],
-                "type": "column"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "rentals_stored"
-                ],
-                "type": "column"
-              }
-            ]
-          ],
-          "table": "machine",
-          "timeColumn": "time",
-          "timeColumnType": "int",
-          "where": [
-            {
-              "name": "$__unixEpochFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Rentals Information ",
-      "transformations": [
-        {
-          "id": "groupBy",
-          "options": {
-            "fields": {
-              "earning": {
-                "aggregations": [
-                  "last"
-                ],
-                "operation": "aggregate"
-              },
-              "machine_id": {
-                "aggregations": [
-                  "last"
-                ],
-                "operation": "groupby"
-              },
-              "reliability": {
-                "aggregations": [
-                  "last"
-                ],
-                "operation": "aggregate"
-              },
-              "rentals_bid": {
-                "aggregations": [
-                  "last"
-                ],
-                "operation": "aggregate"
-              },
-              "rentals_on_demand": {
-                "aggregations": [
-                  "last"
-                ],
-                "operation": "aggregate"
-              },
-              "rentals_stored": {
-                "aggregations": [
-                  "last"
-                ],
-                "operation": "aggregate"
-              }
-            }
-          }
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {},
-            "indexByName": {},
-            "renameByName": {
-              "rentals_bid (last)": "Running Interruptible",
-              "rentals_on_demand (last)": "Running On Demand",
-              "rentals_stored (last)": "Stored Instances"
-            }
-          }
-        }
-      ],
-      "type": "table"
     }
   ],
   "refresh": "",
@@ -1465,5 +1625,5 @@
   "timezone": "",
   "title": "Account Overview",
   "uid": "TRHLcQ57z",
-  "version": 27
+  "version": 34
 }
