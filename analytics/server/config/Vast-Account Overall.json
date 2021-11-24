@@ -724,46 +724,6 @@
           }
         },
         {
-          "id": "organize",
-          "options": {
-            "excludeByName": {
-              "machine_id 0": false,
-              "machine_id 1": true,
-              "machine_id 2": true,
-              "machine_id 3": true,
-              "machine_id 4": true,
-              "machine_id 5": true,
-              "power_consumption 1": false
-            },
-            "indexByName": {
-              "Time": 0,
-              "Total": 7,
-              "machine_id 0": 2,
-              "machine_id 1": 1,
-              "machine_id 2": 3,
-              "machine_id 3": 4,
-              "machine_id 4": 5,
-              "machine_id 5": 6,
-              "power_consumption 0": 8,
-              "power_consumption 1": 9,
-              "power_consumption 2": 10,
-              "power_consumption 3": 11,
-              "power_consumption 4": 12,
-              "power_consumption 5": 13
-            },
-            "renameByName": {
-              "Total": "",
-              "machine_id 1": "",
-              "power_consumption 0": "GPU0",
-              "power_consumption 1": "GPU1",
-              "power_consumption 2": "GPU2",
-              "power_consumption 3": "GPU3",
-              "power_consumption 4": "GPU4",
-              "power_consumption 5": "GPU5"
-            }
-          }
-        },
-        {
           "id": "groupBy",
           "options": {
             "fields": {
@@ -812,7 +772,84 @@
               "machine_id 0": {
                 "aggregations": [],
                 "operation": "groupby"
+              },
+              "power_consumption 0": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "power_consumption 1": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "power_consumption 2": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "power_consumption 3": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "power_consumption 4": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "power_consumption 5": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
               }
+            }
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "machine_id 0": false,
+              "machine_id 1": true,
+              "machine_id 2": true,
+              "machine_id 3": true,
+              "machine_id 4": true,
+              "machine_id 5": true,
+              "power_consumption 1": false
+            },
+            "indexByName": {
+              "Total (lastNotNull)": 1,
+              "machine_id": 0,
+              "power_consumption 0 (lastNotNull)": 2,
+              "power_consumption 1 (lastNotNull)": 3,
+              "power_consumption 2 (lastNotNull)": 4,
+              "power_consumption 3 (lastNotNull)": 5,
+              "power_consumption 4 (lastNotNull)": 6,
+              "power_consumption 5 (lastNotNull)": 7
+            },
+            "renameByName": {
+              "Total": "",
+              "Total (lastNotNull)": "TOTAL",
+              "machine_id 1": "",
+              "power_consumption 0": "GPU0",
+              "power_consumption 0 (lastNotNull)": "GPU0",
+              "power_consumption 1": "GPU1",
+              "power_consumption 1 (lastNotNull)": "GPU1",
+              "power_consumption 2": "GPU2",
+              "power_consumption 2 (lastNotNull)": "GPU2",
+              "power_consumption 3": "GPU3",
+              "power_consumption 3 (lastNotNull)": "GPU3",
+              "power_consumption 4": "GPU4",
+              "power_consumption 4 (lastNotNull)": "GPU4",
+              "power_consumption 5": "GPU5",
+              "power_consumption 5 (lastNotNull)": "GPU5"
             }
           }
         }
@@ -1051,27 +1088,6 @@
       "title": "GPU Temperatures",
       "transformations": [
         {
-          "id": "organize",
-          "options": {
-            "excludeByName": {
-              "machine_id 1": true,
-              "machine_id 2": true,
-              "machine_id 3": true,
-              "machine_id 4": true,
-              "machine_id 5": true
-            },
-            "indexByName": {},
-            "renameByName": {
-              "temperature 0": "GPU0",
-              "temperature 1": "GPU1",
-              "temperature 2": "GPU2",
-              "temperature 3": "GPU3",
-              "temperature 4": "GPU4",
-              "temperature 5": "GPU5"
-            }
-          }
-        },
-        {
           "id": "groupBy",
           "options": {
             "fields": {
@@ -1114,7 +1130,70 @@
               "machine_id 0": {
                 "aggregations": [],
                 "operation": "groupby"
+              },
+              "temperature 0": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "temperature 1": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "temperature 2": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "temperature 3": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "temperature 4": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "temperature 5": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
               }
+            }
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "machine_id 1": true,
+              "machine_id 2": true,
+              "machine_id 3": true,
+              "machine_id 4": true,
+              "machine_id 5": true
+            },
+            "indexByName": {},
+            "renameByName": {
+              "temperature 0": "GPU0",
+              "temperature 0 (lastNotNull)": "GPU0",
+              "temperature 1": "GPU1",
+              "temperature 1 (lastNotNull)": "GPU1",
+              "temperature 2": "GPU2",
+              "temperature 2 (lastNotNull)": "GPU2",
+              "temperature 3": "GPU3",
+              "temperature 3 (lastNotNull)": "GPU3",
+              "temperature 4": "GPU4",
+              "temperature 4 (lastNotNull)": "GPU4",
+              "temperature 5": "GPU5",
+              "temperature 5 (lastNotNull)": "GPU5"
             }
           }
         }
@@ -1655,5 +1734,5 @@
   "timezone": "",
   "title": "Account Overview",
   "uid": "TRHLcQ57z",
-  "version": 44
+  "version": 47
 }
