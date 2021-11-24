@@ -14,7 +14,7 @@ This is an analytics dashboard for remotely monitoring system information as wel
 
 NOTE: This is still a WIP. Not everything displayed is working properly and it needs lots of improvements like log rotation etc.
 
-![image](https://user-images.githubusercontent.com/19214485/143028788-2d4c7d20-7d90-4f8c-adb6-8f57716b7169.png)
+![image](https://user-images.githubusercontent.com/19214485/143225097-8ac65fc8-5899-4760-bd86-edb245da8752.png)
 
 
 ![image](https://user-images.githubusercontent.com/19214485/142931964-4ea23bd8-8fd7-40e5-bfcf-c88a9fffc78c.png)
