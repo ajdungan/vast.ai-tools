@@ -92,8 +92,8 @@ You may also redo the dashboard.json step from the server setup to get the lates
 
 ### Client
 ```bash
-docker stop vast-analytics
-docker rm vast-analytics
+docker stop vast-dash-analytics
+docker rm vast-dash-analytics
 docker pull jjziets/custom:vast-dash-analytics
 
 # run client setup again
