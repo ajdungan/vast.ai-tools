@@ -430,13 +430,15 @@
       "type": "timeseries"
     },
     {
-      "datasource": "MySQL",
+      "datasource": null,
       "fieldConfig": {
         "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
           "custom": {
             "align": "left",
-            "displayMode": "auto",
-            "filterable": false
+            "displayMode": "auto"
           },
           "mappings": [],
           "thresholds": {
@@ -447,18 +449,18 @@
                 "value": null
               }
             ]
-          }
+          },
+          "unit": "currencyUSD"
         },
         "overrides": [
           {
             "matcher": {
               "id": "byName",
-              "options": "reliability (last)"
+              "options": "machine_id"
             },
             "properties": [
               {
-                "id": "unit",
-                "value": "percentunit"
+                "id": "unit"
               }
             ]
           }
@@ -470,19 +472,19 @@
         "x": 0,
         "y": 13
       },
-      "id": 2,
+      "id": 14,
       "options": {
-        "showHeader": true,
-        "sortBy": []
+        "showHeader": true
       },
       "pluginVersion": "8.2.5",
       "targets": [
         {
-          "format": "table",
+          "format": "time_series",
           "group": [],
+          "hide": false,
           "metricColumn": "none",
-          "rawQuery": false,
-          "rawSql": "SELECT\n  time AS \"time\",\n  machine_id,\n  reliability,\n  rentals_on_demand,\n  rentals_bid,\n  rentals_stored\nFROM machine\nWHERE\n  $__unixEpochFilter(time)\nORDER BY time",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  time AS \"time\",\n  machine_id,\n  earn_hour,\n  earn_day\nFROM machine\nWHERE\n  $__unixEpochFilter(time)\nORDER BY time",
           "refId": "A",
           "select": [
             [
@@ -496,31 +498,7 @@
             [
               {
                 "params": [
-                  "reliability"
-                ],
-                "type": "column"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "rentals_on_demand"
-                ],
-                "type": "column"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "rentals_bid"
-                ],
-                "type": "column"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "rentals_stored"
+                  "earn_hour"
                 ],
                 "type": "column"
               }
@@ -538,49 +516,27 @@
           ]
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Rentals Information ",
+      "title": "Income Per Host",
       "transformations": [
         {
           "id": "groupBy",
           "options": {
             "fields": {
-              "earning": {
+              "earn_day": {
+                "aggregations": [
+                  "last"
+                ],
+                "operation": "aggregate"
+              },
+              "earn_hour": {
                 "aggregations": [
                   "last"
                 ],
                 "operation": "aggregate"
               },
               "machine_id": {
-                "aggregations": [
-                  "last"
-                ],
+                "aggregations": [],
                 "operation": "groupby"
-              },
-              "reliability": {
-                "aggregations": [
-                  "last"
-                ],
-                "operation": "aggregate"
-              },
-              "rentals_bid": {
-                "aggregations": [
-                  "last"
-                ],
-                "operation": "aggregate"
-              },
-              "rentals_on_demand": {
-                "aggregations": [
-                  "last"
-                ],
-                "operation": "aggregate"
-              },
-              "rentals_stored": {
-                "aggregations": [
-                  "last"
-                ],
-                "operation": "aggregate"
               }
             }
           }
@@ -591,9 +547,8 @@
             "excludeByName": {},
             "indexByName": {},
             "renameByName": {
-              "rentals_bid (last)": "Running Interruptible",
-              "rentals_on_demand (last)": "Running On Demand",
-              "rentals_stored (last)": "Stored Instances"
+              "earn_day (last)": "Earnings per day",
+              "earn_hour (last)": "Earnings per hour"
             }
           }
         }
@@ -632,6 +587,22 @@
             "properties": [
               {
                 "id": "unit"
+              },
+              {
+                "id": "custom.width",
+                "value": 118
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "TOTAL"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 120
               }
             ]
           }
@@ -646,12 +617,7 @@
       "id": 10,
       "options": {
         "showHeader": true,
-        "sortBy": [
-          {
-            "desc": true,
-            "displayName": "Time"
-          }
-        ]
+        "sortBy": []
       },
       "pluginVersion": "8.2.5",
       "targets": [
@@ -712,15 +678,16 @@
             "mode": "reduceRow",
             "reduce": {
               "include": [
-                "power_consumption 1",
                 "power_consumption 0",
+                "power_consumption 1",
                 "power_consumption 2",
                 "power_consumption 3",
                 "power_consumption 4",
                 "power_consumption 5"
               ],
               "reducer": "sum"
-            }
+            },
+            "replaceFields": false
           }
         },
         {
@@ -857,15 +824,13 @@
       "type": "table"
     },
     {
-      "datasource": null,
+      "datasource": "MySQL",
       "fieldConfig": {
         "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
           "custom": {
             "align": "left",
-            "displayMode": "auto"
+            "displayMode": "auto",
+            "filterable": false
           },
           "mappings": [],
           "thresholds": {
@@ -876,10 +841,25 @@
                 "value": null
               }
             ]
-          },
-          "unit": "currencyUSD"
+          }
         },
         "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "reliability (last)"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percentunit"
+              },
+              {
+                "id": "custom.width",
+                "value": 117
+              }
+            ]
+          },
           {
             "matcher": {
               "id": "byName",
@@ -887,7 +867,8 @@
             },
             "properties": [
               {
-                "id": "unit"
+                "id": "custom.width",
+                "value": 113
               }
             ]
           }
@@ -899,19 +880,19 @@
         "x": 0,
         "y": 17
       },
-      "id": 14,
+      "id": 2,
       "options": {
-        "showHeader": true
+        "showHeader": true,
+        "sortBy": []
       },
       "pluginVersion": "8.2.5",
       "targets": [
         {
-          "format": "time_series",
+          "format": "table",
           "group": [],
-          "hide": false,
           "metricColumn": "none",
-          "rawQuery": true,
-          "rawSql": "SELECT\n  time AS \"time\",\n  machine_id,\n  earn_hour,\n  earn_day\nFROM machine\nWHERE\n  $__unixEpochFilter(time)\nORDER BY time",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  time AS \"time\",\n  machine_id,\n  reliability,\n  rentals_on_demand,\n  rentals_bid,\n  rentals_stored\nFROM machine\nWHERE\n  $__unixEpochFilter(time)\nORDER BY time",
           "refId": "A",
           "select": [
             [
@@ -925,7 +906,31 @@
             [
               {
                 "params": [
-                  "earn_hour"
+                  "reliability"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "rentals_on_demand"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "rentals_bid"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "rentals_stored"
                 ],
                 "type": "column"
               }
@@ -943,27 +948,49 @@
           ]
         }
       ],
-      "title": "Income Per Host",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Rentals Information ",
       "transformations": [
         {
           "id": "groupBy",
           "options": {
             "fields": {
-              "earn_day": {
-                "aggregations": [
-                  "last"
-                ],
-                "operation": "aggregate"
-              },
-              "earn_hour": {
+              "earning": {
                 "aggregations": [
                   "last"
                 ],
                 "operation": "aggregate"
               },
               "machine_id": {
-                "aggregations": [],
+                "aggregations": [
+                  "last"
+                ],
                 "operation": "groupby"
+              },
+              "reliability": {
+                "aggregations": [
+                  "last"
+                ],
+                "operation": "aggregate"
+              },
+              "rentals_bid": {
+                "aggregations": [
+                  "last"
+                ],
+                "operation": "aggregate"
+              },
+              "rentals_on_demand": {
+                "aggregations": [
+                  "last"
+                ],
+                "operation": "aggregate"
+              },
+              "rentals_stored": {
+                "aggregations": [
+                  "last"
+                ],
+                "operation": "aggregate"
               }
             }
           }
@@ -974,8 +1001,9 @@
             "excludeByName": {},
             "indexByName": {},
             "renameByName": {
-              "earn_day (last)": "Earnings per day",
-              "earn_hour (last)": "Earnings per hour"
+              "rentals_bid (last)": "Running Interruptible",
+              "rentals_on_demand (last)": "Running On Demand",
+              "rentals_stored (last)": "Stored Instances"
             }
           }
         }
@@ -1677,7 +1705,7 @@
       "type": "table"
     }
   ],
-  "refresh": "1m",
+  "refresh": "",
   "schemaVersion": 32,
   "style": "dark",
   "tags": [],
@@ -1692,5 +1720,5 @@
   "timezone": "",
   "title": "Account Overview",
   "uid": "TRHLcQ57z",
-  "version": 56
+  "version": 58
 }
