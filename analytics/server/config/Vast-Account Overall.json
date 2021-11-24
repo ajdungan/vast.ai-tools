@@ -769,43 +769,43 @@
             "fields": {
               "GPU0": {
                 "aggregations": [
-                  "last"
+                  "lastNotNull"
                 ],
                 "operation": "aggregate"
               },
               "GPU1": {
                 "aggregations": [
-                  "last"
+                  "lastNotNull"
                 ],
                 "operation": "aggregate"
               },
               "GPU2": {
                 "aggregations": [
-                  "last"
+                  "lastNotNull"
                 ],
                 "operation": "aggregate"
               },
               "GPU3": {
                 "aggregations": [
-                  "last"
+                  "lastNotNull"
                 ],
                 "operation": "aggregate"
               },
               "GPU4": {
                 "aggregations": [
-                  "last"
+                  "lastNotNull"
                 ],
                 "operation": "aggregate"
               },
               "GPU5": {
                 "aggregations": [
-                  "last"
+                  "lastNotNull"
                 ],
                 "operation": "aggregate"
               },
               "Total": {
                 "aggregations": [
-                  "last"
+                  "lastNotNull"
                 ],
                 "operation": "aggregate"
               },
@@ -1077,37 +1077,37 @@
             "fields": {
               "GPU0": {
                 "aggregations": [
-                  "last"
+                  "lastNotNull"
                 ],
                 "operation": "aggregate"
               },
               "GPU1": {
                 "aggregations": [
-                  "last"
+                  "lastNotNull"
                 ],
                 "operation": "aggregate"
               },
               "GPU2": {
                 "aggregations": [
-                  "last"
+                  "lastNotNull"
                 ],
                 "operation": "aggregate"
               },
               "GPU3": {
                 "aggregations": [
-                  "last"
+                  "lastNotNull"
                 ],
                 "operation": "aggregate"
               },
               "GPU4": {
                 "aggregations": [
-                  "last"
+                  "lastNotNull"
                 ],
                 "operation": "aggregate"
               },
               "GPU5": {
                 "aggregations": [
-                  "last"
+                  "lastNotNull"
                 ],
                 "operation": "aggregate"
               },
@@ -1640,7 +1640,7 @@
       "type": "table"
     }
   ],
-  "refresh": "",
+  "refresh": "1m",
   "schemaVersion": 32,
   "style": "dark",
   "tags": [],
@@ -1655,5 +1655,5 @@
   "timezone": "",
   "title": "Account Overview",
   "uid": "TRHLcQ57z",
-  "version": 41
+  "version": 44
 }
