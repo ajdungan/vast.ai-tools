@@ -22,10 +22,96 @@
   "fiscalYearStartMonth": 0,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 2,
+  "id": 3,
   "links": [],
   "liveNow": false,
   "panels": [
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 2,
+        "x": 0,
+        "y": 0
+      },
+      "id": 22,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.2.5",
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  time AS \"time\",\n  hostname,\n  machine_id\nFROM machine\nWHERE\n  $__unixEpochFilter(time)\nORDER BY time",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "hostname"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "machine_id"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "machine",
+          "timeColumn": "time",
+          "timeColumnType": "int",
+          "where": [
+            {
+              "name": "$__unixEpochFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "HonstName to Machine ID ",
+      "transformations": [],
+      "type": "stat"
+    },
     {
       "cards": {
         "cardPadding": 1,
@@ -44,8 +130,8 @@
       "datasource": null,
       "gridPos": {
         "h": 8,
-        "w": 24,
-        "x": 0,
+        "w": 22,
+        "x": 2,
         "y": 0
       },
       "heatmap": {},
@@ -114,6 +200,7 @@
     },
     {
       "datasource": null,
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -131,7 +218,7 @@
               "tooltip": false,
               "viz": false
             },
-            "lineInterpolation": "linear",
+            "lineInterpolation": "smooth",
             "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
@@ -171,7 +258,7 @@
       "options": {
         "legend": {
           "calcs": [],
-          "displayMode": "list",
+          "displayMode": "hidden",
           "placement": "bottom"
         },
         "tooltip": {
@@ -350,7 +437,7 @@
             "mode": "thresholds"
           },
           "custom": {
-            "align": "auto",
+            "align": "left",
             "displayMode": "auto"
           },
           "mappings": [],
@@ -380,7 +467,7 @@
         ]
       },
       "gridPos": {
-        "h": 12,
+        "h": 4,
         "w": 9,
         "x": 0,
         "y": 16
@@ -429,7 +516,7 @@
           ]
         }
       ],
-      "title": "Income Per Hour",
+      "title": "Income Per Host",
       "transformations": [
         {
           "id": "groupBy",
@@ -453,6 +540,17 @@
               }
             }
           }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {},
+            "renameByName": {
+              "earn_day (last)": "Earnings per day",
+              "earn_hour (last)": "Earnings per hour"
+            }
+          }
         }
       ],
       "type": "table"
@@ -465,7 +563,7 @@
             "mode": "thresholds"
           },
           "custom": {
-            "align": "auto",
+            "align": "left",
             "displayMode": "auto"
           },
           "mappings": [],
@@ -495,7 +593,7 @@
         ]
       },
       "gridPos": {
-        "h": 12,
+        "h": 4,
         "w": 15,
         "x": 9,
         "y": 16
@@ -594,19 +692,19 @@
             },
             "indexByName": {
               "Time": 0,
-              "Total": 13,
+              "Total": 7,
               "machine_id 0": 2,
               "machine_id 1": 1,
               "machine_id 2": 3,
               "machine_id 3": 4,
               "machine_id 4": 5,
               "machine_id 5": 6,
-              "power_consumption 0": 7,
-              "power_consumption 1": 8,
-              "power_consumption 2": 9,
-              "power_consumption 3": 10,
-              "power_consumption 4": 11,
-              "power_consumption 5": 12
+              "power_consumption 0": 8,
+              "power_consumption 1": 9,
+              "power_consumption 2": 10,
+              "power_consumption 3": 11,
+              "power_consumption 4": 12,
+              "power_consumption 5": 13
             },
             "renameByName": {
               "Total": "",
@@ -684,7 +782,7 @@
             "mode": "thresholds"
           },
           "custom": {
-            "align": "auto",
+            "align": "left",
             "displayMode": "auto"
           },
           "mappings": [],
@@ -719,10 +817,10 @@
         ]
       },
       "gridPos": {
-        "h": 12,
+        "h": 4,
         "w": 4,
         "x": 0,
-        "y": 28
+        "y": 20
       },
       "id": 16,
       "options": {
@@ -785,7 +883,7 @@
       "fieldConfig": {
         "defaults": {
           "custom": {
-            "align": null,
+            "align": "left",
             "displayMode": "auto",
             "filterable": false
           },
@@ -817,10 +915,10 @@
         ]
       },
       "gridPos": {
-        "h": 12,
+        "h": 4,
         "w": 4,
         "x": 4,
-        "y": 28
+        "y": 20
       },
       "id": 6,
       "options": {
@@ -906,7 +1004,7 @@
       "fieldConfig": {
         "defaults": {
           "custom": {
-            "align": null,
+            "align": "left",
             "displayMode": "auto",
             "filterable": false
           },
@@ -937,10 +1035,10 @@
         ]
       },
       "gridPos": {
-        "h": 12,
+        "h": 4,
         "w": 4,
         "x": 8,
-        "y": 28
+        "y": 20
       },
       "id": 8,
       "options": {
@@ -1028,7 +1126,7 @@
             "mode": "thresholds"
           },
           "custom": {
-            "align": "auto",
+            "align": "left",
             "displayMode": "auto"
           },
           "mappings": [],
@@ -1062,10 +1160,10 @@
         ]
       },
       "gridPos": {
-        "h": 12,
+        "h": 4,
         "w": 4,
         "x": 12,
-        "y": 28
+        "y": 20
       },
       "id": 18,
       "options": {
@@ -1216,10 +1314,10 @@
         ]
       },
       "gridPos": {
-        "h": 12,
+        "h": 4,
         "w": 8,
         "x": 16,
-        "y": 28
+        "y": 20
       },
       "id": 2,
       "options": {
@@ -1360,5 +1458,5 @@
   "timezone": "",
   "title": "Account Overall",
   "uid": "TRHLcQ57z",
-  "version": 46
+  "version": 17
 }
