@@ -41,7 +41,7 @@ docker-compose up -d
 ### 4. Setup Grafana
 - Go to your servers IP in your browser, e.g. 0.0.0.0 and login with the username & password "admin".
 - Once logged in, on the bottom left add a "Data source" under settings. Choose MySQL and enter the details below
-- ![image](https://user-images.githubusercontent.com/19214485/143193846-b3908b83-b1c4-4d65-84c3-eff5f80d0c88.png)
+- ![image](https://user-images.githubusercontent.com/19214485/143194086-066fd254-c303-49bf-b6fd-3ea5c6c551ab.png)
 
 ```bash
 database "vast"
