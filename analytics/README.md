@@ -54,24 +54,24 @@ user "root"
 - Select your dashboard and on the top there is options you can change for power cost, power offset and machine ID. You must set the machine ID to the same one as the client you setup below. You must create a dashboard for each Vast rig and set its machine ID.
 
 ## Client setup
-On your vast machine, run the below command. Replacing the database connection details and your vast machine ID.
+On your vast machine, run the below command. Replacing the YourVastKey, database connection details and your vast machine ID.
 
 ```bash
-docker run \
+sudo docker run \
   -e DB_HOST=0.0.0.0 \
   -e DB_USER=root \
-  -e DB_PASSWORD=password \
+  -e DB_PASSWORD=TestPassWord \
   -e DB_NAME=vast \
   -e VAST_MACHINE_ID=1234 \
   -e LOG_SYS_INTERVAL=30 \
   -e LOG_ACC_INTERVAL=60 \
+  -e VAST_API_KEY=YourVastKey \
   --gpus all \
   --restart always \
   -v /var/lib/docker:/var/lib/docker \
   -v /var/run/docker.sock:/var/run/docker.sock \
-  -v /var/lib/vastai_kaalia/api_key:/var/lib/vastai_analytics/api_key \
   --network host \
-  --name vast--dash-analytics -d \
+  --name vast-dash-analytics -d \
   jjziets/vast-dash-analytics:latest
 ```
 
