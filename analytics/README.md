@@ -40,7 +40,9 @@ docker-compose up -d
 
 ### 4. Setup Grafana
 - Go to your servers IP in your browser, e.g. 0.0.0.0 and login with the username & password "admin".
-- Once logged in, on the bottom left add a "Data source" under settings. Choose mysql and enter the details below
+- Once logged in, on the bottom left add a "Data source" under settings. Choose MySQL and enter the details below
+- ![image](https://user-images.githubusercontent.com/19214485/143193846-b3908b83-b1c4-4d65-84c3-eff5f80d0c88.png)
+
 ```bash
 database "vast"
 host "db:3306"
@@ -48,7 +50,7 @@ password "Password you made in docker.compose.yml"
 user "root"
 ```
 - Hit save
-- Then in the sidebar again, add a dashboard and select "import". Use [this file](https://github.com/jjziets/vast.ai-tools/blob/master/analytics/server/config/Vast-Account%20Overall.json) and [this file]https://github.com/jjziets/vast.ai-tools/blob/master/analytics/server/config/Vast-Host-Details.json
+- Then in the sidebar again, add a dashboard and select "import". Use [this file](https://github.com/jjziets/vast.ai-tools/blob/master/analytics/server/config/Vast-Account%20Overall.json) and [this file](https://github.com/jjziets/vast.ai-tools/blob/master/analytics/server/config/Vast-Host-Details.json)
 - Select your dashboard and on the top there is options you can change for power cost, power offset and machine ID. You must set the machine ID to the same one as the client you setup below. You must create a dashboard for each Vast rig and set its machine ID.
 
 ## Client setup
