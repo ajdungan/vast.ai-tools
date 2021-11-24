@@ -5,13 +5,14 @@ from lib.sys import log
 import json
 import os
 
-api_key_path = settings.DIR + "/api_key"
-api_key = None
+#api_key_path = settings.DIR + "/api_key"
+#api_key = None
 
-if os.path.isfile(api_key_path):
-    api_key_file = open(api_key_path, "r")
-    api_key = api_key_file.read().strip()
-    log("API Key Exists:", api_key)
+#if os.path.isfile(api_key_path):
+#    api_key_file = open(api_key_path, "r")
+#    api_key = api_key_file.read().strip()
+#    log("API Key Exists:", api_key)
+api_key = settings.VAST_API_KEY
 
 class Vast:
     username: str
