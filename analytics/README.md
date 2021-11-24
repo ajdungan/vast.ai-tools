@@ -70,7 +70,7 @@ On your vast machine, run the below command. Replacing the YourVastKey, database
 sudo docker run \
   -e DB_HOST=0.0.0.0 \
   -e DB_USER=root \
-  -e DB_PASSWORD=TestPassWord \
+  -e DB_PASSWORD=password \
   -e DB_NAME=vast \
   -e VAST_MACHINE_ID=1234 \
   -e LOG_SYS_INTERVAL=30 \
