@@ -281,7 +281,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__unixEpochGroupAlias(time,1h),\n  sum(earn_hour) / count(earn_hour) * count(DISTINCT machine_id) AS \"earn_hour\"\nFROM machine\nWHERE\n  $__unixEpochFilter(time)\nGROUP BY 1\nORDER BY $__unixEpochGroup(time,1h)",
+          "rawSql": "SELECT\n  $__unixEpochGroupAlias(time,10m),\n  sum(earn_hour) / count(earn_hour) * count(DISTINCT machine_id) AS \"earn_hour\"\nFROM machine\nWHERE\n  $__unixEpochFilter(time)\nGROUP BY 1\nORDER BY $__unixEpochGroup(time,10m)",
           "refId": "A",
           "select": [
             [
@@ -1116,23 +1116,40 @@
       "title": "GPU Temperatures",
       "transformations": [
         {
+          "id": "groupBy",
+          "options": {
+            "fields": {
+              "machine_id": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "temperature": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              }
+            }
+          }
+        },
+        {
           "id": "organize",
           "options": {
             "excludeByName": {
-              "machine_id 1": true,
               "machine_id 2": true,
               "machine_id 3": true,
               "machine_id 4": true,
-              "machine_id 5": true
+              "machine_id 5": true,
+              "machine_id 6": true
             },
             "indexByName": {},
             "renameByName": {
-              "temperature 0": "GPU0",
-              "temperature 1": "GPU1",
-              "temperature 2": "GPU2",
-              "temperature 3": "GPU3",
-              "temperature 4": "GPU4",
-              "temperature 5": "GPU5"
+              "temperature (lastNotNull) 1": "GPU0",
+              "temperature (lastNotNull) 2": "GPU1",
+              "temperature (lastNotNull) 3": "GPU2",
+              "temperature (lastNotNull) 4": "GPU3",
+              "temperature (lastNotNull) 5": "GPU4",
+              "temperature (lastNotNull) 6": "GPU5"
             }
           }
         },
@@ -1176,7 +1193,7 @@
                 ],
                 "operation": "aggregate"
               },
-              "machine_id 0": {
+              "machine_id 1": {
                 "aggregations": [],
                 "operation": "groupby"
               }
@@ -1713,12 +1730,12 @@
     "list": []
   },
   "time": {
-    "from": "now-2d",
+    "from": "now-24h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Account Overview",
   "uid": "TRHLcQ57z",
-  "version": 58
+  "version": 63
 }
