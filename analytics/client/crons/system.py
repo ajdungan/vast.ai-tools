@@ -14,8 +14,10 @@ def run():
     disk_usage = psutil.disk_io_counters(perdisk=False)
 #    network_usage = psutil.net_io_counters(pernic=True)["docker0"]
     network_usage = psutil.net_io_counters(pernic=True)
-    temperatures = psutil.sensors_temperatures()
+    cputemp = open("/sys/class/thermal/thermal_zone0/temp",'r').readlines()
+    temperatures = float(cputemp[0])/1000
     networksum=0
+
 
     def get_average(items):
         items = [item.current for item in items]
@@ -76,7 +78,8 @@ def run():
         "component": "cpu",
         "hw_id": None,
         "utilisation": psutil.cpu_percent(),
-        "temperature": None,#get_average(temperatures['coretemp']),
+#        "temperature": None,#get_average(temperatures['coretemp']),
+        "temperature": temperatures,
         "power_consumption": None,
     })
 
