@@ -1,3 +1,13 @@
+The aim is to setup a list of usble tools that can be used with vastai. The tools are free to use, modify and distribute. If you find this useful and wish to donate your welcome to send your donations to the following wallets
+
+BTC 15qkQSYXP2BvpqJkbj2qsNFb6nd7FyVcou
+
+XMR 897VkA8sG6gh7yvrKrtvWningikPteojfSgGff3JAUs3cu7jxPDjhiAZRdcQSYPE2VGFVHAdirHqRZEpZsWyPiNK6XPQKAg
+
+RVN RSgWs9Co8nQeyPqQAAqHkHhc5ykXyoMDUp
+
+USDT(ETH ERC20) 0xa5955cf9fe7af53bcaa1d2404e2b17a1f28aac4f
+
 # Analytics dashboard
 
 This is an analytics dashboard for remotely monitoring system information as well as tracking earnings.
