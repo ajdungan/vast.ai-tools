@@ -1051,40 +1051,70 @@
       "title": "GPU Temperatures",
       "transformations": [
         {
-          "id": "groupBy",
+          "id": "organize",
           "options": {
-            "fields": {
-              "machine_id": {
-                "aggregations": [],
-                "operation": "groupby"
-              },
-              "temperature": {
-                "aggregations": [
-                  "lastNotNull"
-                ],
-                "operation": "aggregate"
-              }
+            "excludeByName": {
+              "machine_id 1": true,
+              "machine_id 2": true,
+              "machine_id 3": true,
+              "machine_id 4": true,
+              "machine_id 5": true
+            },
+            "indexByName": {},
+            "renameByName": {
+              "temperature 0": "GPU0",
+              "temperature 1": "GPU1",
+              "temperature 2": "GPU2",
+              "temperature 3": "GPU3",
+              "temperature 4": "GPU4",
+              "temperature 5": "GPU5"
             }
           }
         },
         {
-          "id": "organize",
+          "id": "groupBy",
           "options": {
-            "excludeByName": {
-              "machine_id 2": true,
-              "machine_id 3": true,
-              "machine_id 4": true,
-              "machine_id 5": true,
-              "machine_id 6": true
-            },
-            "indexByName": {},
-            "renameByName": {
-              "temperature (lastNotNull) 1": "GPU0",
-              "temperature (lastNotNull) 2": "GPU1",
-              "temperature (lastNotNull) 3": "GPU2",
-              "temperature (lastNotNull) 4": "GPU3",
-              "temperature (lastNotNull) 5": "GPU4",
-              "temperature (lastNotNull) 6": "GPU5"
+            "fields": {
+              "GPU0": {
+                "aggregations": [
+                  "last"
+                ],
+                "operation": "aggregate"
+              },
+              "GPU1": {
+                "aggregations": [
+                  "last"
+                ],
+                "operation": "aggregate"
+              },
+              "GPU2": {
+                "aggregations": [
+                  "last"
+                ],
+                "operation": "aggregate"
+              },
+              "GPU3": {
+                "aggregations": [
+                  "last"
+                ],
+                "operation": "aggregate"
+              },
+              "GPU4": {
+                "aggregations": [
+                  "last"
+                ],
+                "operation": "aggregate"
+              },
+              "GPU5": {
+                "aggregations": [
+                  "last"
+                ],
+                "operation": "aggregate"
+              },
+              "machine_id 0": {
+                "aggregations": [],
+                "operation": "groupby"
+              }
             }
           }
         }
@@ -1625,5 +1655,5 @@
   "timezone": "",
   "title": "Account Overview",
   "uid": "TRHLcQ57z",
-  "version": 34
+  "version": 38
 }
