@@ -1043,7 +1043,7 @@
           "format": "time_series",
           "group": [],
           "metricColumn": "hw_id",
-          "rawQuery": true,
+          "rawQuery": false,
           "rawSql": "SELECT\n  time AS \"time\",\n  hw_id AS metric,\n  machine_id,\n  temperature\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu'\nORDER BY time",
           "refId": "A",
           "select": [
@@ -1088,64 +1088,70 @@
       "title": "GPU Temperatures",
       "transformations": [
         {
-          "id": "groupBy",
+          "id": "organize",
           "options": {
-            "fields": {
-              "machine_id 0": {
-                "aggregations": [],
-                "operation": "groupby"
-              },
-              "temperature 0": {
-                "aggregations": [
-                  "lastNotNull"
-                ],
-                "operation": "aggregate"
-              },
-              "temperature 1": {
-                "aggregations": [
-                  "lastNotNull"
-                ],
-                "operation": "aggregate"
-              },
-              "temperature 2": {
-                "aggregations": [
-                  "lastNotNull"
-                ],
-                "operation": "aggregate"
-              },
-              "temperature 3": {
-                "aggregations": [
-                  "lastNotNull"
-                ],
-                "operation": "aggregate"
-              },
-              "temperature 4": {
-                "aggregations": [
-                  "lastNotNull"
-                ],
-                "operation": "aggregate"
-              },
-              "temperature 5": {
-                "aggregations": [
-                  "lastNotNull"
-                ],
-                "operation": "aggregate"
-              }
+            "excludeByName": {
+              "machine_id 1": true,
+              "machine_id 2": true,
+              "machine_id 3": true,
+              "machine_id 4": true,
+              "machine_id 5": true
+            },
+            "indexByName": {},
+            "renameByName": {
+              "temperature 0": "GPU0",
+              "temperature 1": "GPU1",
+              "temperature 2": "GPU2",
+              "temperature 3": "GPU3",
+              "temperature 4": "GPU4",
+              "temperature 5": "GPU5"
             }
           }
         },
         {
-          "id": "organize",
+          "id": "groupBy",
           "options": {
-            "excludeByName": {},
-            "indexByName": {},
-            "renameByName": {
-              "temperature 0 (lastNotNull)": "GPU0",
-              "temperature 1 (lastNotNull)": "GPU1",
-              "temperature 2 (lastNotNull)": "GPU2",
-              "temperature 3 (lastNotNull)": "GPU3",
-              "temperature 4 (lastNotNull)": "GPU4",
-              "temperature 5 (lastNotNull)": "GPU5"
+            "fields": {
+              "GPU0": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "GPU1": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "GPU2": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "GPU3": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "GPU4": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "GPU5": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "machine_id 0": {
+                "aggregations": [],
+                "operation": "groupby"
+              }
             }
           }
         }
@@ -1686,5 +1692,5 @@
   "timezone": "",
   "title": "Account Overview",
   "uid": "TRHLcQ57z",
-  "version": 53
+  "version": 56
 }
