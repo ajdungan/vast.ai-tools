@@ -616,6 +616,7 @@
       },
       "id": 10,
       "options": {
+        "frameIndex": 2,
         "showHeader": true,
         "sortBy": []
       },
@@ -627,7 +628,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  time AS \"time\",\n  machine_id,\n  power_consumption,\n  hw_id\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu'\nORDER BY time",
+          "rawSql": "SELECT\n  time AS \"time\",\n  machine_id,\n  power_consumption\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu' AND\n  hw_id = 0\nORDER BY time",
           "refId": "A",
           "select": [
             [
@@ -642,14 +643,6 @@
               {
                 "params": [
                   "power_consumption"
-                ],
-                "type": "column"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "hw_id"
                 ],
                 "type": "column"
               }
@@ -673,6 +666,415 @@
                 "'gpu'"
               ],
               "type": "expression"
+            },
+            {
+              "datatype": "varchar",
+              "name": "",
+              "params": [
+                "hw_id",
+                "=",
+                "0"
+              ],
+              "type": "expression"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  time AS \"time\",\n  machine_id,\n  power_consumption\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu' AND\n  hw_id = 1\nORDER BY time",
+          "refId": "B",
+          "select": [
+            [
+              {
+                "params": [
+                  "machine_id"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "power_consumption"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "hardware",
+          "timeColumn": "time",
+          "timeColumnType": "int",
+          "where": [
+            {
+              "name": "$__unixEpochFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "datatype": "varchar",
+              "name": "",
+              "params": [
+                "component",
+                "=",
+                "'gpu'"
+              ],
+              "type": "expression"
+            },
+            {
+              "datatype": "varchar",
+              "name": "",
+              "params": [
+                "hw_id",
+                "=",
+                "1"
+              ],
+              "type": "expression"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  time AS \"time\",\n  machine_id,\n  power_consumption\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu' AND\n  hw_id = 2\nORDER BY time",
+          "refId": "C",
+          "select": [
+            [
+              {
+                "params": [
+                  "machine_id"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "power_consumption"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "hardware",
+          "timeColumn": "time",
+          "timeColumnType": "int",
+          "where": [
+            {
+              "name": "$__unixEpochFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "datatype": "varchar",
+              "name": "",
+              "params": [
+                "component",
+                "=",
+                "'gpu'"
+              ],
+              "type": "expression"
+            },
+            {
+              "datatype": "varchar",
+              "name": "",
+              "params": [
+                "hw_id",
+                "=",
+                "2"
+              ],
+              "type": "expression"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  time AS \"time\",\n  machine_id,\n  power_consumption\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu' AND\n  hw_id = 3\nORDER BY time",
+          "refId": "D",
+          "select": [
+            [
+              {
+                "params": [
+                  "machine_id"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "power_consumption"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "hardware",
+          "timeColumn": "time",
+          "timeColumnType": "int",
+          "where": [
+            {
+              "name": "$__unixEpochFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "datatype": "varchar",
+              "name": "",
+              "params": [
+                "component",
+                "=",
+                "'gpu'"
+              ],
+              "type": "expression"
+            },
+            {
+              "datatype": "varchar",
+              "name": "",
+              "params": [
+                "hw_id",
+                "=",
+                "3"
+              ],
+              "type": "expression"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  time AS \"time\",\n  machine_id,\n  power_consumption\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu' AND\n  hw_id = 4\nORDER BY time",
+          "refId": "E",
+          "select": [
+            [
+              {
+                "params": [
+                  "machine_id"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "power_consumption"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "hardware",
+          "timeColumn": "time",
+          "timeColumnType": "int",
+          "where": [
+            {
+              "name": "$__unixEpochFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "datatype": "varchar",
+              "name": "",
+              "params": [
+                "component",
+                "=",
+                "'gpu'"
+              ],
+              "type": "expression"
+            },
+            {
+              "datatype": "varchar",
+              "name": "",
+              "params": [
+                "hw_id",
+                "=",
+                "4"
+              ],
+              "type": "expression"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  time AS \"time\",\n  machine_id,\n  power_consumption\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu' AND\n  hw_id = 5\nORDER BY time",
+          "refId": "F",
+          "select": [
+            [
+              {
+                "params": [
+                  "machine_id"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "power_consumption"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "hardware",
+          "timeColumn": "time",
+          "timeColumnType": "int",
+          "where": [
+            {
+              "name": "$__unixEpochFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "datatype": "varchar",
+              "name": "",
+              "params": [
+                "component",
+                "=",
+                "'gpu'"
+              ],
+              "type": "expression"
+            },
+            {
+              "datatype": "varchar",
+              "name": "",
+              "params": [
+                "hw_id",
+                "=",
+                "5"
+              ],
+              "type": "expression"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  time AS \"time\",\n  machine_id,\n  power_consumption\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu' AND\n  hw_id = 6\nORDER BY time",
+          "refId": "G",
+          "select": [
+            [
+              {
+                "params": [
+                  "machine_id"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "power_consumption"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "hardware",
+          "timeColumn": "time",
+          "timeColumnType": "int",
+          "where": [
+            {
+              "name": "$__unixEpochFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "datatype": "varchar",
+              "name": "",
+              "params": [
+                "component",
+                "=",
+                "'gpu'"
+              ],
+              "type": "expression"
+            },
+            {
+              "datatype": "varchar",
+              "name": "",
+              "params": [
+                "hw_id",
+                "=",
+                "6"
+              ],
+              "type": "expression"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  time AS \"time\",\n  machine_id,\n  power_consumption\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu' AND\n  hw_id = 7\nORDER BY time",
+          "refId": "H",
+          "select": [
+            [
+              {
+                "params": [
+                  "machine_id"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "power_consumption"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "hardware",
+          "timeColumn": "time",
+          "timeColumnType": "int",
+          "where": [
+            {
+              "name": "$__unixEpochFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "datatype": "varchar",
+              "name": "",
+              "params": [
+                "component",
+                "=",
+                "'gpu'"
+              ],
+              "type": "expression"
+            },
+            {
+              "datatype": "varchar",
+              "name": "",
+              "params": [
+                "hw_id",
+                "=",
+                "7"
+              ],
+              "type": "expression"
             }
           ]
         }
@@ -685,63 +1087,27 @@
           "id": "groupBy",
           "options": {
             "fields": {
-              "machine_id 0": {
+              "machine_id": {
                 "aggregations": [],
                 "operation": "groupby"
               },
-              "machine_id 1": {
+              "machine_id_1": {
                 "aggregations": [],
-                "operation": null
+                "operation": "groupby"
               },
-              "machine_id 2": {
-                "aggregations": [],
-                "operation": null
-              },
-              "machine_id 3": {
-                "aggregations": [],
-                "operation": null
-              },
-              "machine_id 4": {
-                "aggregations": [],
-                "operation": null
-              },
-              "power_consumption 0": {
+              "power_consumption": {
                 "aggregations": [
-                  "lastNotNull"
-                ],
-                "operation": "aggregate"
-              },
-              "power_consumption 1": {
-                "aggregations": [
-                  "lastNotNull"
-                ],
-                "operation": "aggregate"
-              },
-              "power_consumption 2": {
-                "aggregations": [
-                  "lastNotNull"
-                ],
-                "operation": "aggregate"
-              },
-              "power_consumption 3": {
-                "aggregations": [
-                  "lastNotNull"
-                ],
-                "operation": "aggregate"
-              },
-              "power_consumption 4": {
-                "aggregations": [
-                  "lastNotNull"
-                ],
-                "operation": "aggregate"
-              },
-              "power_consumption 5": {
-                "aggregations": [
-                  "lastNotNull"
+                  "last"
                 ],
                 "operation": "aggregate"
               }
             }
+          }
+        },
+        {
+          "id": "seriesToColumns",
+          "options": {
+            "byField": "machine_id"
           }
         },
         {
@@ -750,12 +1116,14 @@
             "mode": "reduceRow",
             "reduce": {
               "include": [
-                "power_consumption 0 (lastNotNull)",
-                "power_consumption 1 (lastNotNull)",
-                "power_consumption 2 (lastNotNull)",
-                "power_consumption 3 (lastNotNull)",
-                "power_consumption 4 (lastNotNull)",
-                "power_consumption 5 (lastNotNull)"
+                "power_consumption (last) 1",
+                "power_consumption (last) 2",
+                "power_consumption (last) 3",
+                "power_consumption (last) 4",
+                "power_consumption (last) 5",
+                "power_consumption (last) 6",
+                "power_consumption (last) 7",
+                "power_consumption (last) 8"
               ],
               "reducer": "sum"
             }
@@ -768,20 +1136,24 @@
             "indexByName": {
               "Total": 1,
               "machine_id": 0,
-              "power_consumption 0 (lastNotNull)": 2,
-              "power_consumption 1 (lastNotNull)": 3,
-              "power_consumption 2 (lastNotNull)": 4,
-              "power_consumption 3 (lastNotNull)": 5,
-              "power_consumption 4 (lastNotNull)": 6,
-              "power_consumption 5 (lastNotNull)": 7
+              "power_consumption (last) 1": 2,
+              "power_consumption (last) 2": 3,
+              "power_consumption (last) 3": 4,
+              "power_consumption (last) 4": 5,
+              "power_consumption (last) 5": 6,
+              "power_consumption (last) 6": 7,
+              "power_consumption (last) 7": 8,
+              "power_consumption (last) 8": 9
             },
             "renameByName": {
-              "power_consumption 0 (lastNotNull)": "GPU0",
-              "power_consumption 1 (lastNotNull)": "GPU1",
-              "power_consumption 2 (lastNotNull)": "GPU2",
-              "power_consumption 3 (lastNotNull)": "GPU3",
-              "power_consumption 4 (lastNotNull)": "GPU4",
-              "power_consumption 5 (lastNotNull)": "GPU5"
+              "power_consumption (last) 1": "GPU0",
+              "power_consumption (last) 2": "GPU1",
+              "power_consumption (last) 3": "GPU2",
+              "power_consumption (last) 4": "GPU3",
+              "power_consumption (last) 5": "GPU4",
+              "power_consumption (last) 6": "GPU5",
+              "power_consumption (last) 7": "GPU6",
+              "power_consumption (last) 8": "GPU7"
             }
           }
         }
@@ -1037,7 +1409,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  time AS \"time\",\n  machine_id,\n  temperature,\n  hw_id\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu'\nORDER BY time",
+          "rawSql": "SELECT\n  time AS \"time\",\n  machine_id,\n  temperature\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu' AND\n  hw_id = 0\nORDER BY time",
           "refId": "A",
           "select": [
             [
@@ -1052,14 +1424,6 @@
               {
                 "params": [
                   "temperature"
-                ],
-                "type": "column"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "hw_id"
                 ],
                 "type": "column"
               }
@@ -1082,6 +1446,400 @@
                 "'gpu'"
               ],
               "type": "expression"
+            },
+            {
+              "name": "",
+              "params": [
+                "hw_id",
+                "=",
+                "0"
+              ],
+              "type": "expression"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  time AS \"time\",\n  machine_id,\n  temperature\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu' AND\n  hw_id = 1\nORDER BY time",
+          "refId": "B",
+          "select": [
+            [
+              {
+                "params": [
+                  "machine_id"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "temperature"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "hardware",
+          "timeColumn": "time",
+          "timeColumnType": "int",
+          "where": [
+            {
+              "name": "$__unixEpochFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "name": "",
+              "params": [
+                "component",
+                "=",
+                "'gpu'"
+              ],
+              "type": "expression"
+            },
+            {
+              "name": "",
+              "params": [
+                "hw_id",
+                "=",
+                "1"
+              ],
+              "type": "expression"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  time AS \"time\",\n  machine_id,\n  temperature\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu' AND\n  hw_id = 2\nORDER BY time",
+          "refId": "C",
+          "select": [
+            [
+              {
+                "params": [
+                  "machine_id"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "temperature"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "hardware",
+          "timeColumn": "time",
+          "timeColumnType": "int",
+          "where": [
+            {
+              "name": "$__unixEpochFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "name": "",
+              "params": [
+                "component",
+                "=",
+                "'gpu'"
+              ],
+              "type": "expression"
+            },
+            {
+              "name": "",
+              "params": [
+                "hw_id",
+                "=",
+                "2"
+              ],
+              "type": "expression"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  time AS \"time\",\n  machine_id,\n  temperature\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu' AND\n  hw_id = 3\nORDER BY time",
+          "refId": "D",
+          "select": [
+            [
+              {
+                "params": [
+                  "machine_id"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "temperature"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "hardware",
+          "timeColumn": "time",
+          "timeColumnType": "int",
+          "where": [
+            {
+              "name": "$__unixEpochFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "name": "",
+              "params": [
+                "component",
+                "=",
+                "'gpu'"
+              ],
+              "type": "expression"
+            },
+            {
+              "name": "",
+              "params": [
+                "hw_id",
+                "=",
+                "3"
+              ],
+              "type": "expression"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  time AS \"time\",\n  machine_id,\n  temperature\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu' AND\n  hw_id = 4\nORDER BY time",
+          "refId": "E",
+          "select": [
+            [
+              {
+                "params": [
+                  "machine_id"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "temperature"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "hardware",
+          "timeColumn": "time",
+          "timeColumnType": "int",
+          "where": [
+            {
+              "name": "$__unixEpochFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "name": "",
+              "params": [
+                "component",
+                "=",
+                "'gpu'"
+              ],
+              "type": "expression"
+            },
+            {
+              "name": "",
+              "params": [
+                "hw_id",
+                "=",
+                "4"
+              ],
+              "type": "expression"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  time AS \"time\",\n  machine_id,\n  temperature\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu' AND\n  hw_id = 5\nORDER BY time",
+          "refId": "F",
+          "select": [
+            [
+              {
+                "params": [
+                  "machine_id"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "temperature"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "hardware",
+          "timeColumn": "time",
+          "timeColumnType": "int",
+          "where": [
+            {
+              "name": "$__unixEpochFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "name": "",
+              "params": [
+                "component",
+                "=",
+                "'gpu'"
+              ],
+              "type": "expression"
+            },
+            {
+              "name": "",
+              "params": [
+                "hw_id",
+                "=",
+                "5"
+              ],
+              "type": "expression"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  time AS \"time\",\n  machine_id,\n  temperature\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu' AND\n  hw_id = 6\nORDER BY time",
+          "refId": "G",
+          "select": [
+            [
+              {
+                "params": [
+                  "machine_id"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "temperature"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "hardware",
+          "timeColumn": "time",
+          "timeColumnType": "int",
+          "where": [
+            {
+              "name": "$__unixEpochFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "name": "",
+              "params": [
+                "component",
+                "=",
+                "'gpu'"
+              ],
+              "type": "expression"
+            },
+            {
+              "name": "",
+              "params": [
+                "hw_id",
+                "=",
+                "6"
+              ],
+              "type": "expression"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  time AS \"time\",\n  machine_id,\n  temperature\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu' AND\n  hw_id = 7\nORDER BY time",
+          "refId": "H",
+          "select": [
+            [
+              {
+                "params": [
+                  "machine_id"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "temperature"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "hardware",
+          "timeColumn": "time",
+          "timeColumnType": "int",
+          "where": [
+            {
+              "name": "$__unixEpochFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "name": "",
+              "params": [
+                "component",
+                "=",
+                "'gpu'"
+              ],
+              "type": "expression"
+            },
+            {
+              "name": "",
+              "params": [
+                "hw_id",
+                "=",
+                "7"
+              ],
+              "type": "expression"
             }
           ]
         }
@@ -1092,47 +1850,23 @@
           "id": "groupBy",
           "options": {
             "fields": {
-              "machine_id 0": {
+              "machine_id": {
                 "aggregations": [],
                 "operation": "groupby"
               },
-              "temperature 0": {
+              "temperature": {
                 "aggregations": [
-                  "lastNotNull"
-                ],
-                "operation": "aggregate"
-              },
-              "temperature 1": {
-                "aggregations": [
-                  "lastNotNull"
-                ],
-                "operation": "aggregate"
-              },
-              "temperature 2": {
-                "aggregations": [
-                  "lastNotNull"
-                ],
-                "operation": "aggregate"
-              },
-              "temperature 3": {
-                "aggregations": [
-                  "lastNotNull"
-                ],
-                "operation": "aggregate"
-              },
-              "temperature 4": {
-                "aggregations": [
-                  "lastNotNull"
-                ],
-                "operation": "aggregate"
-              },
-              "temperature 5": {
-                "aggregations": [
-                  "lastNotNull"
+                  "last"
                 ],
                 "operation": "aggregate"
               }
             }
+          }
+        },
+        {
+          "id": "seriesToColumns",
+          "options": {
+            "byField": "machine_id"
           }
         },
         {
@@ -1141,12 +1875,14 @@
             "excludeByName": {},
             "indexByName": {},
             "renameByName": {
-              "temperature 0 (lastNotNull)": "GPU0",
-              "temperature 1 (lastNotNull)": "GPU1",
-              "temperature 2 (lastNotNull)": "GPU2",
-              "temperature 3 (lastNotNull)": "GPU3",
-              "temperature 4 (lastNotNull)": "GPU4",
-              "temperature 5 (lastNotNull)": "GPU5"
+              "temperature (last) 1": "GPU0",
+              "temperature (last) 2": "GPU1",
+              "temperature (last) 3": "GPU2",
+              "temperature (last) 4": "GPU3",
+              "temperature (last) 5": "GPU4",
+              "temperature (last) 6": "GPU5",
+              "temperature (last) 7": "GPU6",
+              "temperature (last) 8": "GPU7"
             }
           }
         }
@@ -1680,12 +2416,12 @@
     "list": []
   },
   "time": {
-    "from": "now-24h",
+    "from": "now-2d",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Account Overview",
   "uid": "TRHLcQ57z",
-  "version": 67
+  "version": 70
 }
