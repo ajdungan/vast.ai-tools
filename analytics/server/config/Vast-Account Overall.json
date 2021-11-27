@@ -43,7 +43,7 @@
               }
             ]
           },
-          "unit": "none"
+          "unit": "currencyUSD"
         },
         "overrides": []
       },
@@ -53,12 +53,12 @@
         "x": 0,
         "y": 0
       },
-      "id": 22,
+      "id": 26,
       "options": {
         "colorMode": "value",
         "graphMode": "none",
-        "justifyMode": "center",
-        "orientation": "horizontal",
+        "justifyMode": "auto",
+        "orientation": "auto",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -76,21 +76,13 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  time AS \"time\",\n  hostname,\n  machine_id\nFROM machine\nWHERE\n  $__unixEpochFilter(time)\nORDER BY time",
+          "rawSql": "SELECT\n  time AS \"time\",\n  account_credit\nFROM machine\nWHERE\n  $__unixEpochFilter(time)\nORDER BY time",
           "refId": "A",
           "select": [
             [
               {
                 "params": [
-                  "hostname"
-                ],
-                "type": "column"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "machine_id"
+                  "account_credit"
                 ],
                 "type": "column"
               }
@@ -108,8 +100,7 @@
           ]
         }
       ],
-      "title": "Machine ID HonstName",
-      "transformations": [],
+      "title": "Account Balance",
       "type": "stat"
     },
     {
@@ -130,7 +121,7 @@
       "datasource": null,
       "gridPos": {
         "h": 5,
-        "w": 21,
+        "w": 18,
         "x": 3,
         "y": 0
       },
@@ -200,6 +191,91 @@
     },
     {
       "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 3,
+        "x": 21,
+        "y": 0
+      },
+      "id": 22,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "value_and_name"
+      },
+      "pluginVersion": "8.2.5",
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  time AS \"time\",\n  hostname,\n  machine_id\nFROM machine\nWHERE\n  $__unixEpochFilter(time)\nORDER BY time",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "hostname"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "machine_id"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "machine",
+          "timeColumn": "time",
+          "timeColumnType": "int",
+          "where": [
+            {
+              "name": "$__unixEpochFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": null,
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -209,6 +285,8 @@
           "custom": {
             "axisLabel": "",
             "axisPlacement": "auto",
+            "axisSoftMax": 3,
+            "axisSoftMin": 10,
             "barAlignment": 0,
             "drawStyle": "line",
             "fillOpacity": 0,
@@ -329,7 +407,7 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "palette-classic"
+            "mode": "thresholds"
           },
           "custom": {
             "axisLabel": "",
@@ -344,13 +422,16 @@
               "viz": false
             },
             "lineInterpolation": "smooth",
+            "lineStyle": {
+              "fill": "solid"
+            },
             "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
               "type": "linear"
             },
             "showPoints": "auto",
-            "spanNulls": false,
+            "spanNulls": true,
             "stacking": {
               "group": "A",
               "mode": "none"
@@ -370,7 +451,7 @@
               }
             ]
           },
-          "unit": "currencyUSD"
+          "unit": "watt"
         },
         "overrides": []
       },
@@ -395,23 +476,43 @@
       "targets": [
         {
           "format": "time_series",
-          "group": [],
+          "group": [
+            {
+              "params": [
+                "$__interval",
+                "none"
+              ],
+              "type": "time"
+            }
+          ],
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  time AS \"time\",\n  account_credit\nFROM machine\nWHERE\n  $__unixEpochFilter(time)\nORDER BY time",
+          "rawSql": "SELECT\n  $__unixEpochGroupAlias(time,$__interval),\n  sum(power_consumption) / count(power_consumption) * COUNT(DISTINCT(machine_id+'/'+hw_id)) AS \"power_consumption\"\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu'\nGROUP BY 1\nORDER BY $__unixEpochGroup(time,$__interval)",
           "refId": "A",
           "select": [
             [
               {
                 "params": [
-                  "account_credit"
+                  "power_consumption"
                 ],
                 "type": "column"
+              },
+              {
+                "params": [
+                  "sum"
+                ],
+                "type": "aggregate"
+              },
+              {
+                "params": [
+                  "power_consumption"
+                ],
+                "type": "alias"
               }
             ]
           ],
-          "table": "machine",
+          "table": "hardware",
           "timeColumn": "time",
           "timeColumnType": "int",
           "where": [
@@ -425,7 +526,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Account Credit",
+      "title": "Total Power Usage",
       "transformations": [],
       "type": "timeseries"
     },
@@ -1132,7 +1233,10 @@
         {
           "id": "organize",
           "options": {
-            "excludeByName": {},
+            "excludeByName": {
+              "power_consumption (last) 7": true,
+              "power_consumption (last) 8": true
+            },
             "indexByName": {
               "Total": 1,
               "machine_id": 0,
@@ -1872,7 +1976,10 @@
         {
           "id": "organize",
           "options": {
-            "excludeByName": {},
+            "excludeByName": {
+              "temperature (last) 7": true,
+              "temperature (last) 8": true
+            },
             "indexByName": {},
             "renameByName": {
               "temperature (last) 1": "GPU0",
@@ -2297,7 +2404,12 @@
       "id": 18,
       "options": {
         "showHeader": true,
-        "sortBy": []
+        "sortBy": [
+          {
+            "desc": false,
+            "displayName": "machine_id"
+          }
+        ]
       },
       "pluginVersion": "8.2.5",
       "targets": [
@@ -2307,7 +2419,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  time AS \"time\",\n  machine_id,\n  ABS ( utilisation - LAG(utilisation,2160) OVER ( ORDER BY time)) as DataUsed\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'network'\nORDER BY time ",
+          "rawSql": "SELECT\n  time AS \"time\",\n  machine_id,\n  utilisation - LAG(utilisation,2155) OVER ( PARTITION BY machine_id ORDER BY time) as DataUsed\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'network'\nORDER BY time ",
           "refId": "A",
           "select": [
             [
@@ -2349,7 +2461,7 @@
           ]
         }
       ],
-      "title": "Data used the last 24h",
+      "title": "Data used over 24h",
       "transformations": [
         {
           "id": "groupBy",
@@ -2416,12 +2528,12 @@
     "list": []
   },
   "time": {
-    "from": "now-2d",
+    "from": "now-24h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Account Overview",
   "uid": "TRHLcQ57z",
-  "version": 70
+  "version": 88
 }
