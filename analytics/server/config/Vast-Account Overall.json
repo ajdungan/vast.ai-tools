@@ -2419,7 +2419,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  time AS \"time\",\n  machine_id,\n  utilisation - LAG(utilisation,1920) OVER ( PARTITION BY machine_id ORDER BY time) as DataUsed\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'network'\nORDER BY time ",
+          "rawSql": "SELECT\n  time AS \"time\",\n  machine_id,\n  utilisation - min(utilisation) OVER ( PARTITION BY machine_id ORDER BY time) as DataUsed\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'network'\nORDER BY time ",
           "refId": "A",
           "select": [
             [
@@ -2461,7 +2461,7 @@
           ]
         }
       ],
-      "title": "Data used over 24h",
+      "title": "Data used over time range",
       "transformations": [
         {
           "id": "groupBy",
@@ -2535,5 +2535,5 @@
   "timezone": "",
   "title": "Account Overview",
   "uid": "TRHLcQ57z",
-  "version": 90
+  "version": 91
 }
