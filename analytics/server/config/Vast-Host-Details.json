@@ -23,7 +23,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 4,
-  "iteration": 1637745771374,
+  "iteration": 1638131531321,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -646,7 +646,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__unixEpochGroupAlias(time,1s),\n  sum(power_consumption)  AS \"power_consumption\"\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  machine_id = '$machine_id'\nGROUP BY 1\nORDER BY $__unixEpochGroup(time,1s)",
+          "rawSql": "SELECT\n  $__unixEpochGroupAlias(time,1s),\n  sum(power_consumption) + $power_offset AS \"power_consumption\"\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  machine_id = '$machine_id'\nGROUP BY 1\nORDER BY $__unixEpochGroup(time,1s)",
           "refId": "A",
           "select": [
             [
@@ -3194,7 +3194,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  time AS \"time\",\n   abs ( ( utilisation - LAG(utilisation,5) OVER ( ORDER BY time) ) / \n   (  time - LAG(time,5) OVER ( ORDER BY time) ) ) time_usage\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'network' AND\n  machine_id = $machine_id\nORDER BY time ",
+          "rawSql": "SELECT\n  time AS \"time\",\n   abs ( ( utilisation - LAG(utilisation,5) OVER ( PARTITION BY machine_id ORDER BY time) ) / \n   (  time - LAG(time,5) OVER (PARTITION BY machine_id ORDER BY time) ) ) time_usage\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'network' AND\n  machine_id = $machine_id\nORDER BY time ",
           "refId": "A",
           "select": [
             [
@@ -3644,9 +3644,9 @@
       {
         "allValue": null,
         "current": {
-          "selected": false,
-          "text": "3129",
-          "value": "3129"
+          "selected": true,
+          "text": "2787",
+          "value": "2787"
         },
         "datasource": "MySQL",
         "definition": "SELECT\n  machine_id\nFROM machine\nWHERE\n  $__unixEpochFilter(time)\nORDER BY time",
@@ -3671,12 +3671,12 @@
     ]
   },
   "time": {
-    "from": "now-12h",
+    "from": "now-24h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Vast-Host-Details",
   "uid": "SwHgmdcGk",
-  "version": 7
+  "version": 11
 }
