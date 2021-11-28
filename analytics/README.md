@@ -34,19 +34,19 @@ Open port 80 and 3306 on the VPS for TCP/IP trafic
 sudo apt install containerd
 sudo apt install -y docker.io docker-compose
 sudo service docker start
-git clone https://github.com/jjziets/vast.ai-tools.git
+sudo git clone https://github.com/jjziets/vast.ai-tools.git
 cd vast.ai-tools/analytics/server
 ```
 
 ### 2. Update mysql password in docker-compose.yml
 ```bash
-nano docker-compose.yml
+sudo nano docker-compose.yml
 # Update the line that says MYSQL_ROOT_PASSWORD
 ```
 
 ### 3. Start server
 ```bash
-docker-compose up -d
+sudo docker-compose up -d
 ```
 
 ### 4. Setup Grafana
@@ -93,19 +93,19 @@ sudo docker run \
 ### Server
 ```bash
 cd vast.ai-tools/analytics/server
-git pull origin master
-docker-compose down
-docker volume rm server_db
-docker-compose up -d
+sudo git pull origin master
+sudo docker-compose down
+sudo docker volume rm server_db
+sudo docker-compose up -d
 ```
 
 You may also redo the dashboard.json step from the server setup to get the latest queries.
 
 ### Client
 ```bash
-docker stop vast-dash-analytics
-docker rm vast-dash-analytics
-docker pull jjziets/vast-dash-analytics:latest
+sudo docker stop vast-dash-analytics
+sudo docker rm vast-dash-analytics
+sudo docker pull jjziets/vast-dash-analytics:latest
 
 # run client setup again
 ```
