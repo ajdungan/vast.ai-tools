@@ -20,14 +20,12 @@
   },
   "editable": true,
   "fiscalYearStartMonth": 0,
-  "gnetId": null,
   "graphTooltip": 0,
   "id": 3,
   "links": [],
   "liveNow": false,
   "panels": [
     {
-      "datasource": null,
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -69,7 +67,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.2.5",
+      "pluginVersion": "8.3.1",
       "targets": [
         {
           "format": "time_series",
@@ -105,8 +103,7 @@
     },
     {
       "cards": {
-        "cardPadding": 1,
-        "cardRound": null
+        "cardPadding": 1
       },
       "color": {
         "cardColor": "#b4ff00",
@@ -118,7 +115,6 @@
         "mode": "spectrum"
       },
       "dataFormat": "timeseries",
-      "datasource": null,
       "gridPos": {
         "h": 5,
         "w": 18,
@@ -174,23 +170,14 @@
       "xAxis": {
         "show": true
       },
-      "xBucketNumber": null,
-      "xBucketSize": null,
       "yAxis": {
-        "decimals": null,
         "format": "none",
         "logBase": 1,
-        "max": null,
-        "min": null,
-        "show": true,
-        "splitFactor": null
+        "show": true
       },
-      "yBucketBound": "auto",
-      "yBucketNumber": null,
-      "yBucketSize": null
+      "yBucketBound": "auto"
     },
     {
-      "datasource": null,
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -232,7 +219,7 @@
         "text": {},
         "textMode": "value_and_name"
       },
-      "pluginVersion": "8.2.5",
+      "pluginVersion": "8.3.1",
       "targets": [
         {
           "format": "time_series",
@@ -275,7 +262,6 @@
       "type": "stat"
     },
     {
-      "datasource": null,
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -303,7 +289,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
-            "spanNulls": false,
+            "spanNulls": true,
             "stacking": {
               "group": "A",
               "mode": "none"
@@ -336,7 +322,7 @@
       "options": {
         "legend": {
           "calcs": [],
-          "displayMode": "hidden",
+          "displayMode": "list",
           "placement": "bottom"
         },
         "tooltip": {
@@ -346,6 +332,10 @@
       "pluginVersion": "8.2.5",
       "targets": [
         {
+          "datasource": {
+            "type": "mysql",
+            "uid": "FEQWir57k"
+          },
           "format": "time_series",
           "group": [
             {
@@ -359,7 +349,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__unixEpochGroupAlias(time,10m),\n  sum(earn_hour * 0.75) / count(earn_hour * 0.75) * count(DISTINCT machine_id) AS \"earn_hour\"\nFROM machine\nWHERE\n  $__unixEpochFilter(time)\nGROUP BY 1\nORDER BY $__unixEpochGroup(time,10m)",
+          "rawSql": "SELECT\n  $__unixEpochGroupAlias(time,10m),\n  sum(earn_hour * 0.75) / count(earn_hour * 0.75) * count(DISTINCT machine_id) AS \"overall earn_hour\"\nFROM machine\nWHERE\n  $__unixEpochFilter(time)\nGROUP BY 1\nORDER BY $__unixEpochGroup(time,10m)",
           "refId": "A",
           "select": [
             [
@@ -393,16 +383,50 @@
               "type": "macro"
             }
           ]
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "FEQWir57k"
+          },
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "hostname",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  time AS \"time\",\n  hostname AS metric,\n  earn_hour\nFROM machine\nWHERE\n  $__unixEpochFilter(time)\nORDER BY time",
+          "refId": "B",
+          "select": [
+            [
+              {
+                "params": [
+                  "earn_hour"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "machine",
+          "timeColumn": "time",
+          "timeColumnType": "int",
+          "where": [
+            {
+              "name": "$__unixEpochFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Total Income per hour",
       "transformations": [],
       "type": "timeseries"
     },
     {
-      "datasource": "MySQL",
+      "datasource": {
+        "type": "mysql",
+        "uid": "FEQWir57k"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -524,8 +548,6 @@
           ]
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Total Power Usage",
       "transformations": [],
       "type": "timeseries"
@@ -535,7 +557,6 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -569,7 +590,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.2.5",
+      "pluginVersion": "8.3.1",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -579,9 +600,13 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "mysql",
+            "uid": "FEQWir57k"
+          },
           "format": "time_series",
           "group": [],
-          "hide": false,
+          "hide": true,
           "metricColumn": "none",
           "rawQuery": true,
           "rawSql": "SELECT\n  time AS \"time\",\n  reliability AS value,\n  CONCAT(machine_id, '') AS metric\nFROM machine\nWHERE\n  $__unixEpochFilter(time)\nORDER BY time",
@@ -604,12 +629,41 @@
               "type": "macro"
             }
           ]
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "FEQWir57k"
+          },
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  time AS \"time\",\n  reliability AS value,\n  hostname AS metric\nFROM machine\nWHERE\n  $__unixEpochFilter(time)\nORDER BY time",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Reliability",
       "tooltip": {
         "shared": true,
@@ -618,9 +672,7 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
@@ -628,29 +680,21 @@
         {
           "$$hashKey": "object:787",
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
           "$$hashKey": "object:788",
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
-      "datasource": null,
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -694,9 +738,16 @@
       },
       "id": 14,
       "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
         "showHeader": true
       },
-      "pluginVersion": "8.2.5",
+      "pluginVersion": "8.3.1",
       "targets": [
         {
           "format": "time_series",
@@ -795,7 +846,10 @@
       "type": "table"
     },
     {
-      "datasource": "MySQL",
+      "datasource": {
+        "type": "mysql",
+        "uid": "FEQWir57k"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -855,11 +909,18 @@
       },
       "id": 10,
       "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
         "frameIndex": 2,
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "8.2.5",
+      "pluginVersion": "8.3.1",
       "targets": [
         {
           "format": "time_series",
@@ -1318,8 +1379,6 @@
           ]
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Power Usage",
       "transformations": [
         {
@@ -1403,7 +1462,10 @@
       "type": "table"
     },
     {
-      "datasource": "MySQL",
+      "datasource": {
+        "type": "mysql",
+        "uid": "FEQWir57k"
+      },
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -1461,10 +1523,17 @@
       },
       "id": 2,
       "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "8.2.5",
+      "pluginVersion": "8.3.1",
       "targets": [
         {
           "format": "table",
@@ -1527,8 +1596,6 @@
           ]
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Rentals Information ",
       "transformations": [
         {
@@ -1590,7 +1657,6 @@
       "type": "table"
     },
     {
-      "datasource": null,
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -1636,6 +1702,13 @@
       },
       "id": 24,
       "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
         "showHeader": true,
         "sortBy": [
           {
@@ -1644,7 +1717,7 @@
           }
         ]
       },
-      "pluginVersion": "8.2.5",
+      "pluginVersion": "8.3.1",
       "targets": [
         {
           "format": "time_series",
@@ -2135,7 +2208,6 @@
       "type": "table"
     },
     {
-      "datasource": null,
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2192,10 +2264,17 @@
       },
       "id": 16,
       "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "8.2.5",
+      "pluginVersion": "8.3.1",
       "targets": [
         {
           "format": "time_series",
@@ -2253,7 +2332,10 @@
       "type": "table"
     },
     {
-      "datasource": "MySQL",
+      "datasource": {
+        "type": "mysql",
+        "uid": "FEQWir57k"
+      },
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -2296,11 +2378,18 @@
       },
       "id": 6,
       "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
         "frameIndex": 0,
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "8.2.5",
+      "pluginVersion": "8.3.1",
       "targets": [
         {
           "format": "table",
@@ -2349,8 +2438,6 @@
           ]
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "RAM Usage",
       "transformations": [
         {
@@ -2374,7 +2461,10 @@
       "type": "table"
     },
     {
-      "datasource": "MySQL",
+      "datasource": {
+        "type": "mysql",
+        "uid": "FEQWir57k"
+      },
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -2416,10 +2506,17 @@
       },
       "id": 8,
       "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "8.2.5",
+      "pluginVersion": "8.3.1",
       "targets": [
         {
           "format": "time_series",
@@ -2468,8 +2565,6 @@
           ]
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Disk Usage",
       "transformations": [
         {
@@ -2493,7 +2588,6 @@
       "type": "table"
     },
     {
-      "datasource": null,
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2541,10 +2635,17 @@
       },
       "id": 18,
       "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "8.2.5",
+      "pluginVersion": "8.3.1",
       "targets": [
         {
           "format": "time_series",
@@ -2654,7 +2755,7 @@
     }
   ],
   "refresh": "",
-  "schemaVersion": 32,
+  "schemaVersion": 33,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -2668,5 +2769,6 @@
   "timezone": "",
   "title": "Account Overview",
   "uid": "TRHLcQ57z",
-  "version": 106
+  "version": 110,
+  "weekStart": ""
 }
