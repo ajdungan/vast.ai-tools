@@ -23,7 +23,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 4,
-  "iteration": 1638131531321,
+  "iteration": 1638993322784,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -3644,9 +3644,9 @@
       {
         "allValue": null,
         "current": {
-          "selected": true,
-          "text": "2787",
-          "value": "2787"
+          "selected": false,
+          "text": "3129",
+          "value": "3129"
         },
         "datasource": "MySQL",
         "definition": "SELECT\n  machine_id\nFROM machine\nWHERE\n  $__unixEpochFilter(time)\nORDER BY time",
