@@ -88,6 +88,10 @@ sudo docker-compose down
 sudo docker volume rm server_db
 sudo docker-compose up -d
 ```
+### To update Grafan only 
+sudo docker-compose down
+sudo docker rm vast-analytics-dash
+sudo docker-compose up -d
 
 You may also redo the dashboard.json step from the server setup to get the latest queries.
 
