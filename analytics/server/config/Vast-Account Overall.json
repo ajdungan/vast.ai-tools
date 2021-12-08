@@ -285,8 +285,8 @@
           "custom": {
             "axisLabel": "",
             "axisPlacement": "auto",
-            "axisSoftMax": 3,
-            "axisSoftMin": 10,
+            "axisSoftMax": 9,
+            "axisSoftMin": 6,
             "barAlignment": 0,
             "drawStyle": "line",
             "fillOpacity": 0,
@@ -328,7 +328,7 @@
       },
       "gridPos": {
         "h": 8,
-        "w": 11,
+        "w": 8,
         "x": 0,
         "y": 5
       },
@@ -359,7 +359,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__unixEpochGroupAlias(time,10m),\n  sum(earn_hour) / count(earn_hour) * count(DISTINCT machine_id) AS \"earn_hour\"\nFROM machine\nWHERE\n  $__unixEpochFilter(time)\nGROUP BY 1\nORDER BY $__unixEpochGroup(time,10m)",
+          "rawSql": "SELECT\n  $__unixEpochGroupAlias(time,10m),\n  sum(earn_hour * 0.75) / count(earn_hour * 0.75) * count(DISTINCT machine_id) AS \"earn_hour\"\nFROM machine\nWHERE\n  $__unixEpochFilter(time)\nGROUP BY 1\nORDER BY $__unixEpochGroup(time,10m)",
           "refId": "A",
           "select": [
             [
@@ -458,7 +458,7 @@
       "gridPos": {
         "h": 8,
         "w": 13,
-        "x": 11,
+        "x": 8,
         "y": 5
       },
       "id": 4,
@@ -531,6 +531,125 @@
       "type": "timeseries"
     },
     {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 3,
+        "x": 21,
+        "y": 5
+      },
+      "hiddenSeries": false,
+      "id": 28,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "connected",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "8.2.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  time AS \"time\",\n  reliability AS value,\n  CONCAT(machine_id, '') AS metric\nFROM machine\nWHERE\n  $__unixEpochFilter(time)\nORDER BY time",
+          "refId": "D",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Reliability",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:787",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:788",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
       "datasource": null,
       "fieldConfig": {
         "defaults": {
@@ -585,7 +704,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  time AS \"time\",\n  machine_id,\n  earn_hour,\n  earn_day\nFROM machine\nWHERE\n  $__unixEpochFilter(time)\nORDER BY time",
+          "rawSql": "SELECT\n  time AS \"time\",\n  machine_id,\n  earn_hour * 0.75 AS \"earn_houry\",\n  earn_day * 0.75 AS \"earn_day\"\nFROM machine\nWHERE\n  $__unixEpochFilter(time)\nORDER BY time",
           "refId": "A",
           "select": [
             [
@@ -629,7 +748,25 @@
                 ],
                 "operation": "aggregate"
               },
+              "earn_day * 0.75": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
               "earn_hour": {
+                "aggregations": [
+                  "last"
+                ],
+                "operation": "aggregate"
+              },
+              "earn_hour * 0.75": {
+                "aggregations": [
+                  "last"
+                ],
+                "operation": "aggregate"
+              },
+              "earn_houry": {
                 "aggregations": [
                   "last"
                 ],
@@ -649,7 +786,8 @@
             "indexByName": {},
             "renameByName": {
               "earn_day (last)": "Earnings per day",
-              "earn_hour (last)": "Earnings per hour"
+              "earn_hour (last)": "Earnings per hour",
+              "earn_houry (last)": "Earnings per hour"
             }
           }
         }
@@ -2404,12 +2542,7 @@
       "id": 18,
       "options": {
         "showHeader": true,
-        "sortBy": [
-          {
-            "desc": false,
-            "displayName": "machine_id"
-          }
-        ]
+        "sortBy": []
       },
       "pluginVersion": "8.2.5",
       "targets": [
@@ -2535,5 +2668,5 @@
   "timezone": "",
   "title": "Account Overview",
   "uid": "TRHLcQ57z",
-  "version": 91
+  "version": 106
 }
