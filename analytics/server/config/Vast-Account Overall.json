@@ -103,13 +103,13 @@
     },
     {
       "cards": {
-        "cardPadding": 1
+        "cardPadding": 2
       },
       "color": {
-        "cardColor": "#b4ff00",
+        "cardColor": "#73BF69",
         "colorScale": "sqrt",
         "colorScheme": "interpolateGreens",
-        "exponent": 0.5,
+        "exponent": 100,
         "max": 100,
         "min": 100,
         "mode": "spectrum"
@@ -122,7 +122,7 @@
         "y": 0
       },
       "heatmap": {},
-      "hideZeroBuckets": true,
+      "hideZeroBuckets": false,
       "highlightCards": true,
       "id": 20,
       "legend": {
@@ -132,6 +132,10 @@
       "reverseYBuckets": false,
       "targets": [
         {
+          "datasource": {
+            "type": "mysql",
+            "uid": "FEQWir57k"
+          },
           "format": "time_series",
           "group": [],
           "hide": false,
@@ -170,6 +174,8 @@
       "xAxis": {
         "show": true
       },
+      "xBucketNumber": 10000,
+      "xBucketSize": "",
       "yAxis": {
         "format": "none",
         "logBase": 1,
@@ -2766,13 +2772,13 @@
     "list": []
   },
   "time": {
-    "from": "now-24h",
+    "from": "now-2d",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Account Overview",
   "uid": "TRHLcQ57z",
-  "version": 112,
+  "version": 113,
   "weekStart": ""
 }
