@@ -272,7 +272,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "axisSoftMax": 9,
-            "axisSoftMin": 6,
+            "axisSoftMin": 2,
             "barAlignment": 0,
             "drawStyle": "line",
             "fillOpacity": 0,
@@ -393,8 +393,8 @@
           "group": [],
           "hide": false,
           "metricColumn": "hostname",
-          "rawQuery": false,
-          "rawSql": "SELECT\n  time AS \"time\",\n  hostname AS metric,\n  earn_hour\nFROM machine\nWHERE\n  $__unixEpochFilter(time)\nORDER BY time",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  time AS \"time\",\n  hostname AS metric,\n  earn_hour * 0.75\nFROM machine\nWHERE\n  $__unixEpochFilter(time)\nORDER BY time",
           "refId": "B",
           "select": [
             [
@@ -2769,6 +2769,6 @@
   "timezone": "",
   "title": "Account Overview",
   "uid": "TRHLcQ57z",
-  "version": 110,
+  "version": 111,
   "weekStart": ""
 }
