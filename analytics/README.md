@@ -14,17 +14,16 @@ Vast Rig Detial view
 ## Server setup
 
 The server will host your database and Grafana dashboard.
-I recommend running a local host and setting up portwarding. Else a $5 Ubuntu 18.04 server from Vultr is an option. Use my referral link for $100 credit.
-https://www.vultr.com/?ref=8581277-6G
-Do not try run this on your rig, it can use up a lot of CPU and memory.
+To be setup on local host with portwarding, Do not try run this on your rig, it can use up a lot of CPU and memory.
+This fork it configured for arch linux not ubuntu.
 Open port 80 and 3306 on the VPS for TCP/IP trafic
 
 ### 1. Dependencies & config
 ```bash
-sudo apt install containerd
-sudo apt install -y docker.io docker-compose
-sudo service docker start
-sudo git clone https://github.com/jjziets/vast.ai-tools.git
+yay -S containerd
+yay -S docker-compose
+sudo systemctl start docker.service
+sudo git clone https://github.com/ajdungan/vast.ai-tools.git
 cd vast.ai-tools/analytics/server
 ```
 
